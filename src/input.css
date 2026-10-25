@@ -1,1 +1,67 @@
-@import "tailwindcss"
+@import "tailwindcss";
+
+@layer base {
+  button:not(:disabled) { cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+}
+
+/* === ПЕРЕМЕННЫЕ ТЕМ === */
+:root {
+  --bg-page: oklch(0.98 0 0);
+  --bg-card: oklch(1 0 0);
+  --bg-muted: oklch(0.96 0 0);
+  --text-primary: oklch(0.2 0 0);
+  --text-secondary: oklch(0.45 0 0);
+  --border-color: oklch(0.9 0 0);
+  --brand: oklch(0.35 0.15 264);
+}
+
+.theme-dark {
+  --bg-page: oklch(0.15 0 0);
+  --bg-card: oklch(0.2 0 0);
+  --bg-muted: oklch(0.22 0 0);
+  --text-primary: oklch(0.95 0 0);
+  --text-secondary: oklch(0.7 0 0);
+  --border-color: oklch(0.3 0 0);
+  --brand: oklch(0.75 0.15 264);
+}
+
+.theme-blue {
+  --bg-page: oklch(0.96 0.02 240);
+  --bg-card: oklch(1 0 0);
+  --bg-muted: oklch(0.92 0.03 240);
+  --text-primary: oklch(0.25 0.05 240);
+  --text-secondary: oklch(0.45 0.05 240);
+  --border-color: oklch(0.85 0.05 240);
+  --brand: oklch(0.55 0.15 240);
+}
+
+.theme-sunset {
+  --bg-page: oklch(0.96 0.02 60);
+  --bg-card: oklch(1 0 0);
+  --bg-muted: oklch(0.92 0.04 60);
+  --text-primary: oklch(0.25 0.05 40);
+  --text-secondary: oklch(0.45 0.05 40);
+  --border-color: oklch(0.85 0.05 60);
+  --brand: oklch(0.6 0.18 40);
+}
+
+.theme-green {
+  --bg-page: oklch(0.96 0.02 150);
+  --bg-card: oklch(1 0 0);
+  --bg-muted: oklch(0.92 0.04 150);
+  --text-primary: oklch(0.25 0.05 150);
+  --text-secondary: oklch(0.45 0.05 150);
+  --border-color: oklch(0.85 0.05 150);
+  --brand: oklch(0.5 0.12 150);
+}
+
+.theme-contrast {
+  --bg-page: oklch(1 0 0);
+  --bg-card: oklch(1 0 0);
+  --bg-muted: oklch(0.9 0 0);
+  --text-primary: oklch(0 0 0);
+  --text-secondary: oklch(0 0 0);
+  --border-color: oklch(0 0 0);
+  --brand: oklch(0 0 0);
+}

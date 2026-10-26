@@ -39,14 +39,14 @@
             <path d="M6 18a4 4 0 0 1-2-7.464" />
             <path d="M6.003 5.125a4 4 0 0 0-2.526 5.77" />
           </svg>
-          <span class="text-xl font-bold">Anti-Stress Guide</span>
+          <span class="hidden text-xl font-bold sm:inline">Anti-Stress Guide</span>
         </a>
 
         <!-- Правый блок (кнопки) -->
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 sm:gap-4">
 
           <!-- Блок выбора темы -->
-          <div class="relative">
+          <div class="sm:relative">
 
             <!-- Кнопка (триггер) -->
             <button type="button" id="theme-toggle"
@@ -65,7 +65,7 @@
 
             <!-- Выпадающее меню тем (скрыто по умолчанию классом hidden) -->
             <div id="theme-menu"
-              class="absolute right-0 mt-2 hidden w-85 max-h-[80vh] overflow-y-auto rounded-xl border border-(--border-color) bg-(--bg-card) p-4 shadow-xl z-50">
+              class="absolute left-4 right-4 top-full mt-2 hidden sm:left-auto sm:right-0 sm:w-85 max-h-[80vh] overflow-y-auto rounded-xl border border-(--border-color) bg-(--bg-card) p-4 shadow-xl z-50">
               <!-- Заголовок меню -->
               <div class="mb-4 space-y-1">
                 <h3 data-i18n="theme.title" class="text-lg font-semibold text-(--text-primary)">Выбор темы</h3>
@@ -207,7 +207,7 @@
           <div class="relative flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="h-4 w-4 text-(--text-secondary)">
+              class="hidden h-4 w-4 text-(--text-secondary) sm:block">
               <circle cx="12" cy="12" r="10" />
               <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
               <path d="M2 12h20" />
@@ -274,7 +274,7 @@
           профессиональной среде.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center pt-6">
           <a href="/guide"
-            class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all shrink-0 outline-none h-10 rounded-md px-6 text-lg bg-(--brand) text-white hover:opacity-90 focus-visible:ring-2 focus-visible:ring-(--brand) focus-visible:focus-visible:ring-offset-(--bg-page)"><svg
+            class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all shrink-0 outline-none h-10 rounded-md px-6 text-lg bg-(--brand) text-white hover:opacity-90 focus-visible:ring-2 focus-visible:ring-(--brand) focus-visible:ring-offset-2 focus-visible:ring-offset-(--bg-page)"><svg
               xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class=" h-5 w-5 shrink-0">
@@ -283,7 +283,7 @@
                 d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" />
             </svg><span data-i18n="btn.read">Читать руководство</span></a>
           <a href="/modules"
-            class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all shrink-0 outline-none h-10 rounded-md px-6 text-lg border border-(--border-color) bg-transparent shadow-xs hover:bg-(--bg-muted) focus-visible:ring-2 focus-visible:ring-(--brand) focus-visible:focus-visible:ring-offset-(--bg-page)"><svg
+            class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-all shrink-0 outline-none h-10 rounded-md px-6 text-lg border border-(--border-color) bg-transparent shadow-xs hover:bg-(--bg-muted) focus-visible:ring-2 focus-visible:ring-(--brand) focus-visible:ring-offset-2 focus-visible:ring-offset-(--bg-page)"><svg
               xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               class=" h-5 w-5 shrink-0">
@@ -517,148 +517,8 @@
     </div>
   </footer>
 
-  <script>
-    // ПЕРЕКЛЮЧЕНИЕ ЦВЕТА
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeMenu = document.getElementById('theme-menu');
-
-    // Клик по кнопке — показать/скрыть меню
-    themeToggle.addEventListener('click', () => {
-      themeMenu.classList.toggle('hidden');
-    });
-
-    // Клик вне меню — закрыть
-    document.addEventListener('click', (e) => {
-      if (!themeToggle.contains(e.target) && !themeMenu.contains(e.target)) {
-        themeMenu.classList.add('hidden');
-      }
-    });
-
-    const themeButtons = document.querySelectorAll('[data-theme]');
-
-    function applyTheme(theme) {
-      const root = document.documentElement;
-      [...root.classList].forEach(c => { if (c.startsWith('theme-')) root.classList.remove(c); });
-      root.classList.add('theme-' + theme);
-      themeButtons.forEach(b => {
-        const active = b.dataset.theme === theme;
-        b.classList.toggle('border-(--brand)', active);
-        b.classList.toggle('bg-(--bg-muted)', active);
-        b.classList.toggle('border-(--border-color)', !active);
-        b.querySelector('.check-icon').classList.toggle('hidden', !active);
-      });
-    }
-
-    themeButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const theme = btn.dataset.theme;
-        applyTheme(theme);
-        try { localStorage.setItem('theme', theme); } catch (e) { }
-        themeMenu.classList.add('hidden');
-      });
-    });
-
-    let savedTheme = null;
-    try { savedTheme = localStorage.getItem('theme'); } catch (e) { }
-    applyTheme(savedTheme || 'light');
-
-    // ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА
-    const langToggle = document.getElementById('lang-toggle');
-    const langMenu = document.getElementById('lang-menu');
-
-    // Открытие/закрытие меню языка
-    if (langToggle && langMenu) {
-      langToggle.addEventListener('click', () => {
-        langMenu.classList.toggle('hidden');
-      });
-      // Закрытие при клике вне меню
-      document.addEventListener('click', (e) => {
-        if (!langToggle.contains(e.target) && !langMenu.contains(e.target)) {
-          langMenu.classList.add('hidden');
-        }
-      });
-    }
-
-    // Словарь переводов
-    const translations = {
-      "lang.current": { ru: "Русский", en: "English" },
-      "btn.login": { ru: "Войти", en: "Log in" },
-      "hero.title": { ru: "Управление стрессом: учёба, работа и личная жизнь", en: "Manage Stress While Balancing Study, Work and Personal Life" },
-      "hero.subtitle": { ru: "Антистрессовое руководство для студентов и молодых специалистов", en: "An Anti-Stress Guide for Students and Young Professionals" },
-      "hero.desc": { ru: "Добро пожаловать в это всеобъемлющее руководство по управлению стрессом при совмещении множества обязанностей. Этот курс поможет вам развить устойчивость и навыки эмоциональной саморегуляции для успеха в требовательной академической и профессиональной среде.", en: "Welcome to this comprehensive guide on managing stress while juggling multiple responsibilities. This course will help you develop resilience and emotional self-regulation skills to thrive in demanding academic and professional environments." },
-      "btn.read": { ru: "Читать руководство", en: "Read the Guide" },
-      "btn.tests": { ru: "Пройти интерактивные тесты", en: "Take Interactive Quizzes" },
-      "cards.title": { ru: "Добро пожаловать в ваше путешествие по управлению стрессом", en: "Welcome to Your Stress Management Journey" },
-      "card1.title": { ru: "Образовательное руководство", en: "Educational Guide" },
-      "card1.desc": { ru: "Всеобъемлющий образовательный контент, охватывающий 10 ключевых тем управления стрессом, от понимания стресса до построения долгосрочной устойчивости.", en: "Comprehensive educational content covering 10 key topics in stress management, from understanding stress to building long-term resilience." },
-      "card1.btn": { ru: "Начать обучение", en: "Start Learning" },
-      "card2.title": { ru: "Интерактивные модули", en: "Interactive Modules" },
-      "card2.desc": { ru: "6 интерактивных модулей тестирования для проверки ваших знаний и закрепления обучения с немедленной обратной связью и объяснениями.", en: "6 interactive quiz modules to test your knowledge and reinforce learning with immediate feedback and explanations." },
-      "card2.btn": { ru: "Начать модуль", en: "Start Module" },
-      "card3.title": { ru: "Мой прогресс", en: "My Progress" },
-      "card3.desc": { ru: "Отслеживайте свой путь обучения, просматривайте завершённые модули и отслеживайте свои результаты тестов для измерения прогресса.", en: "Track your learning journey, view completed modules, and monitor your quiz scores to measure your progress." },
-      "card3.btn": { ru: "Ваш прогресс", en: "Your Progress" },
-      "card4.title": { ru: "Аналитика и Инсайты", en: "Analytics & Insights" },
-      "card4.desc": { ru: "Визуализируйте свои паттерны стресса с течением времени, получайте персонализированные рекомендации ИИ и отслеживайте настроение с помощью интерактивного календаря.", en: "Visualize your stress patterns over time, get personalized AI recommendations, and track your mood with an interactive calendar." },
-      "card4.btn": { ru: "Просмотр аналитики", en: "View Analytics" },
-      "card5.title": { ru: "Журнал практики", en: "Practice Log" },
-      "card5.desc": { ru: "Записывайте свои сессии практики релаксации и отслеживайте уровень стресса до и после, чтобы видеть свой прогресс со временем.", en: "Record your relaxation practice sessions and track stress levels before and after to see your progress over time." },
-      "card5.btn": { ru: "Записать практику", en: "Log Practice" },
-      "card6.title": { ru: "Дневник размышлений", en: "Reflection Journal" },
-      "card6.desc": { ru: "Записывайте свои мысли и чувства о каждом модуле, чтобы осмыслить то, что вы узнали, и отслеживать свой эмоциональный путь.", en: "Write down your thoughts and feelings about each module to process what you've learned and track your emotional journey." },
-      "card6.btn": { ru: "Мой дневник", en: "My Journal" },
-      "card7.title": { ru: "Мои сертификаты", en: "My Certificates" },
-      "card7.desc": { ru: "Просматривайте и скачивайте все свои сертификаты о прохождении курса с различными шаблонами и стилями.", en: "View and download all your course completion certificates with different templates and styles." },
-      "card7.btn": { ru: "Просмотреть сертификаты", en: "View Certificates" },
-      "card8.title": { ru: "Мой профиль", en: "My Profile" },
-      "card8.desc": { ru: "Управляйте своим профилем, настраивайте аватар и просматривайте свои достижения и статистику.", en: "Manage your profile, customize your avatar, and view your achievements and statistics." },
-      "card8.btn": { ru: "Просмотр профиля", en: "View Profile" },
-      "footer.text": { ru: "Академический проект для психологического самообразования и управления стрессом", en: "Academic project for psychological self-education and stress management" },
-      "footer.copy": { ru: "© 2025 Ekaterina Jelanova Все права защищены", en: "© 2025 Ekaterina Jelanova All rights reserved" },
-      "theme.title": { ru: "Выбор темы", en: "Choose Theme" },
-      "theme.subtitle": { ru: "Настройте внешний вид приложения", en: "Customize the look and feel of the app" },
-      "theme.light.name": { ru: "Светлая", en: "Light" },
-      "theme.light.desc": { ru: "Чистая и профессиональная светлая тема", en: "Clean and professional light theme" },
-      "theme.dark.name": { ru: "Тёмная", en: "Dark" },
-      "theme.dark.desc": { ru: "Легко для глаз во время вечерних занятий", en: "Easy on the eyes during evening study sessions" },
-      "theme.blue.name": { ru: "Спокойный синий", en: "Calm Blue" },
-      "theme.blue.desc": { ru: "Успокаивающие цвета океана для релаксации", en: "Soothing ocean-inspired colors for relaxation" },
-      "theme.sunset.name": { ru: "Тёплый закат", en: "Warm Sunset" },
-      "theme.sunset.desc": { ru: "Теплые оранжевые и фиолетовые тона для комфорта", en: "Warm oranges and purples for comfort" },
-      "theme.green.name": { ru: "Лесная зелень", en: "Forest Green" },
-      "theme.green.desc": { ru: "Вдохновленные природой успокаивающие земляные тона", en: "Nature-inspired calming earth tones" },
-      "theme.contrast.name": { ru: "Высокий контраст", en: "High Contrast" },
-      "theme.contrast.desc": { ru: "Максимальная читаемость для доступности", en: "Maximum readability for accessibility" }
-    };
-
-    // Функция применения перевода
-    function applyLang(lang) {
-      document.documentElement.lang = lang;
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[key] && translations[key][lang]) {
-          el.textContent = translations[key][lang];
-        }
-      });
-      document.querySelectorAll('[data-lang]').forEach(b => {
-        b.querySelector('.check-lang').classList.toggle('hidden', b.dataset.lang !== lang);
-      });
-    }
-
-    document.querySelectorAll('[data-lang]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const lang = btn.dataset.lang;
-        applyLang(lang);
-        try { localStorage.setItem('lang', lang); } catch (e) { }
-        langMenu.classList.add('hidden');
-      });
-    });
-
-    let savedLang = null;
-    try { savedLang = localStorage.getItem('lang'); } catch (e) { }
-    applyLang(savedLang || 'ru');
-
-  </script>
+<script src="js/translations.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 

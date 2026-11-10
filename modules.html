@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        (function () {
+            // --- Тема (классы, как в input.css) ---
+            var theme = 'default';
+            var lang = 'ru';
+            try {
+                theme = localStorage.getItem('theme') || theme;
+                lang = localStorage.getItem('lang') || lang;
+            } catch (e) { /* localStorage недоступен — работаем с дефолтами */ }
+
+            // Ставим класс темы (кроме default)
+            var html = document.documentElement;
+            html.classList.remove('theme-dark', 'theme-blue', 'theme-sunset', 'theme-green', 'theme-contrast');
+            if (theme && theme !== 'default') {
+                html.classList.add('theme-' + theme);
+            }
+
+            // Язык — через атрибуты (тут всё было верно)
+            html.dataset.lang = lang;
+            html.lang = lang;
+        })();
+    </script>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
+    <title>Образовательное руководство</title>
+    <meta name="description"
+        content="Научитесь управлять стрессом с помощью научно обоснованных техник. Онлайн-курс для студентов, специалистов и всех, кто хочет улучшить качество жизни.">
+    <meta name="keywords"
+        content="управление стрессом, антистресс, техники релаксации, психология, осознанность, эмоциональное здоровье">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Управление стрессом: учёба, работа и личная жизнь">
+    <meta property="og:description"
+        content="Научитесь управлять стрессом с помощью научно обоснованных техник. Онлайн-курс для студентов, специалистов и всех, кто хочет улучшить качество жизни.">
+    <meta property="og:type" content="website">
+    <link href="./dist/output.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-(--bg-page) text-(--text-primary) font-sans antialiased min-h-screen flex flex-col">
+
+    <body class="bg-(--bg-page) text-(--text-primary) font-sans antialiased min-h-screen flex flex-col">
+
+        <!-- Header -->
+        <header class="sticky top-0 z-50 border-b border-(--border-color) bg-(--bg-page)/80 backdrop-blur">
+            <div class="px-4 md:px-8">
+                <div class="grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-2">
+
+                    <div class="justify-self-start">
+                        <a href="index.html"
+                            class="inline-flex items-center gap-2 rounded-md text-sm font-medium px-3 py-2 text-(--text-primary) hover:bg-(--bg-muted) transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" aria-hidden="true">
+                                <path d="m12 19-7-7 7-7"></path>
+                                <path d="M19 12H5"></path>
+                            </svg>
+                            <span class="hidden sm:inline" data-i18n="nav.home">Главная</span>
+                        </a>
+                    </div>
+
+                    <div class="flex items-center gap-2 min-w-0 justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="h-5 w-5 text-(--brand)">
+                            <path
+                                d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z">
+                            </path>
+                            <path
+                                d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z">
+                            </path>
+                            <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"></path>
+                            <path d="M17.599 6.5a3 3 0 0 0 .399-1.375"></path>
+                            <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"></path>
+                            <path d="M3.477 10.896a4 4 0 0 1 .585-.396"></path>
+                            <path d="M19.938 10.5a4 4 0 0 1 .585.396"></path>
+                            <path d="M6 18a4 4 0 0 1-1.967-.516"></path>
+                            <path d="M19.967 17.484A4 4 0 0 1 18 18"></path>
+                        </svg>
+                        <span class="font-semibold truncate text-(--text-primary)"
+                            data-i18n="modules.header_title">Интерактивные модули</span>
+                    </div>
+
+                    <div class="justify-self-end">
+                        <a href="progress.html"
+                            class="inline-flex items-center justify-center rounded-md text-sm font-medium h-9 px-4 bg-(--brand) text-white hover:opacity-90 transition-opacity whitespace-nowrap"
+                            data-i18n="modules.my_progress">Мой прогресс</a>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+        <!-- Основной контент -->
+        <main class="grow container mx-auto px-4 py-12 w-full max-w-5xl">
+
+            <!-- Заголовок страницы -->
+            <div class="text-center space-y-4 mb-12">
+                <h1 class="text-4xl font-bold" data-i18n="modules.page_title">Интерактивные модули</h1>
+                <p class="text-lg text-(--text-muted) max-w-3xl mx-auto" data-i18n="modules.page_desc">
+                    Проверьте своё понимание с помощью этих интерактивных модулей тестирования. Каждый модуль содержит
+                    вопросы с множественным выбором с немедленной обратной связью и объяснениями.
+                </p>
+            </div>
+
+            <!-- Список модулей -->
+            <div class="space-y-5">
+
+                <!-- Модуль 1 -->
+                <div id="module-1-card"
+                    class="bg-(--bg-card) text-(--text-primary) flex flex-col gap-6 rounded-xl py-7 shadow-sm border-2 border-(--border-color) transition-all hover:shadow-lg">
+                    <div class="px-6 md:px-8">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex-1 space-y-2">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="flex h-11 w-11 items-center justify-center rounded-full bg-(--bg-muted) text-(--brand) font-bold text-lg shrink-0">
+                                        1</div>
+                                    <div class="font-semibold text-xl" data-i18n="modules.m1.title">Понимание основ
+                                        стресса</div>
+                                </div>
+                                <div class="text-(--text-muted) text-base leading-relaxed"
+                                    data-i18n="modules.m1.desc">Проверьте свои знания о том, что такое стресс, как он
+                                    влияет на тело и разум, и разницу между острым и хроническим стрессом.</div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="px-6 md:px-8">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2 text-sm text-(--text-muted)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="h-4 w-4">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                </svg>
+                                <span data-i18n="modules.questions_count">5 вопросов</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <a href="module-1.html"
+                                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-[3px] bg-(--brand) text-white hover:opacity-90 h-10 px-5 py-2 has-[>svg]:px-4"
+                                    data-i18n="modules.start_btn">Начать модуль</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Модуль 2 -->
+                <div id="module-2-card"
+                    class="bg-(--bg-card) text-(--text-primary) flex flex-col gap-6 rounded-xl py-7 shadow-sm border-2 border-(--border-color) transition-all hover:shadow-lg">
+                    <div class="px-6 md:px-8">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex-1 space-y-2">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="flex h-11 w-11 items-center justify-center rounded-full bg-(--bg-muted) text-(--brand) font-bold text-lg shrink-0">
+                                        2</div>
+                                    <div class="font-semibold text-xl" data-i18n="modules.m2.title">Определение личных
+                                        стрессоров</div>
+                                </div>
+                                <div class="text-(--text-muted) text-base leading-relaxed"
+                                    data-i18n="modules.m2.desc">Оцените своё понимание того, как определять и
+                                    отслеживать ваши личные триггеры стресса и паттерны.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 md:px-8">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2 text-sm text-(--text-muted)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="h-4 w-4">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                </svg>
+                                <span data-i18n="modules.questions_count">5 вопросов</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <a href="module-2.html"
+                                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-[3px] bg-(--brand) text-white hover:opacity-90 h-10 px-5 py-2 has-[>svg]:px-4"
+                                    data-i18n="modules.start_btn">Начать модуль</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Модуль 3 -->
+                <div id="module-3-card"
+                    class="bg-(--bg-card) text-(--text-primary) flex flex-col gap-6 rounded-xl py-7 shadow-sm border-2 border-(--border-color) transition-all hover:shadow-lg">
+                    <div class="px-6 md:px-8">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex-1 space-y-2">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="flex h-11 w-11 items-center justify-center rounded-full bg-(--bg-muted) text-(--brand) font-bold text-lg shrink-0">
+                                        3</div>
+                                    <div class="font-semibold text-xl" data-i18n="modules.m3.title">Техники когнитивной
+                                        реструктуризации</div>
+                                </div>
+                                <div class="text-(--text-muted) text-base leading-relaxed"
+                                    data-i18n="modules.m3.desc">Оцените свои знания о том, как определять и изменять
+                                    негативные модели мышления, которые усиливают стресс.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 md:px-8">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2 text-sm text-(--text-muted)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="h-4 w-4">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                </svg>
+                                <span data-i18n="modules.questions_count">5 вопросов</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <a href="module-3.html"
+                                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-[3px] bg-(--brand) text-white hover:opacity-90 h-10 px-5 py-2 has-[>svg]:px-4"
+                                    data-i18n="modules.start_btn">Начать модуль</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Модуль 4 -->
+                <div id="module-4-card"
+                    class="bg-(--bg-card) text-(--text-primary) flex flex-col gap-6 rounded-xl py-7 shadow-sm border-2 border-(--border-color) transition-all hover:shadow-lg">
+                    <div class="px-6 md:px-8">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex-1 space-y-2">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="flex h-11 w-11 items-center justify-center rounded-full bg-(--bg-muted) text-(--brand) font-bold text-lg shrink-0">
+                                        4</div>
+                                    <div class="font-semibold text-xl" data-i18n="modules.m4.title">Управление временем
+                                        и приоритизация</div>
+                                </div>
+                                <div class="text-(--text-muted) text-base leading-relaxed"
+                                    data-i18n="modules.m4.desc">Проверьте своё понимание эффективных стратегий
+                                    управления временем и техник приоритизации.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 md:px-8">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2 text-sm text-(--text-muted)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="h-4 w-4">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                </svg>
+                                <span data-i18n="modules.questions_count">5 вопросов</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <a href="module-4.html"
+                                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-[3px] bg-(--brand) text-white hover:opacity-90 h-10 px-5 py-2 has-[>svg]:px-4"
+                                    data-i18n="modules.start_btn">Начать модуль</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Модуль 5 -->
+                <div id="module-5-card"
+                    class="bg-(--bg-card) text-(--text-primary) flex flex-col gap-6 rounded-xl py-7 shadow-sm border-2 border-(--border-color) transition-all hover:shadow-lg">
+                    <div class="px-6 md:px-8">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex-1 space-y-2">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="flex h-11 w-11 items-center justify-center rounded-full bg-(--bg-muted) text-(--brand) font-bold text-lg shrink-0">
+                                        5</div>
+                                    <div class="font-semibold text-xl" data-i18n="modules.m5.title">Релаксация и
+                                        физическое благополучие</div>
+                                </div>
+                                <div class="text-(--text-muted) text-base leading-relaxed"
+                                    data-i18n="modules.m5.desc">Оцените свои знания о техниках релаксации, физической
+                                    активности и роли сна в управлении стрессом.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 md:px-8">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2 text-sm text-(--text-muted)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="h-4 w-4">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                </svg>
+                                <span data-i18n="modules.questions_count">5 вопросов</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <a href="module-5.html"
+                                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-[3px] bg-(--brand) text-white hover:opacity-90 h-10 px-5 py-2 has-[>svg]:px-4"
+                                    data-i18n="modules.start_btn">Начать модуль</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Модуль 6 -->
+                <div id="module-6-card"
+                    class="bg-(--bg-card) text-(--text-primary) flex flex-col gap-6 rounded-xl py-7 shadow-sm border-2 border-(--border-color) transition-all hover:shadow-lg">
+                    <div class="px-6 md:px-8">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="flex-1 space-y-2">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="flex h-11 w-11 items-center justify-center rounded-full bg-(--bg-muted) text-(--brand) font-bold text-lg shrink-0">
+                                        6</div>
+                                    <div class="font-semibold text-xl" data-i18n="modules.m6.title">Социальная поддержка
+                                        и долгосрочная устойчивость</div>
+                                </div>
+                                <div class="text-(--text-muted) text-base leading-relaxed"
+                                    data-i18n="modules.m6.desc">Проверьте своё понимание построения сетей социальной
+                                    поддержки и развития долгосрочной устойчивости.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 md:px-8">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2 text-sm text-(--text-muted)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="h-4 w-4">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                </svg>
+                                <span data-i18n="modules.questions_count">5 вопросов</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <a href="module-6.html"
+                                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-[3px] bg-(--brand) text-white hover:opacity-90 h-10 px-5 py-2 has-[>svg]:px-4"
+                                    data-i18n="modules.start_btn">Начать модуль</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Блок "Как это работает" -->
+            <div
+                class="mt-8 bg-(--bg-muted)/30 text-(--text-primary) flex flex-col gap-6 rounded-xl border border-(--border-color) py-6 shadow-sm">
+                <div class="px-6 pt-6">
+                    <div class="space-y-2">
+                        <h3 class="font-semibold text-lg" data-i18n="modules.how_it_works.title">Как это работает</h3>
+                        <ul class="space-y-2 text-sm text-(--text-muted)">
+                            <li class="flex items-start gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="h-5 w-5 text-(--brand) mt-0.5 shrink-0">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="m9 12 2 2 4-4"></path>
+                                </svg>
+                                <span data-i18n="modules.how_it_works.p1">Каждый модуль содержит 5 вопросов, основанных
+                                    на образовательном руководстве</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="h-5 w-5 text-(--brand) mt-0.5 shrink-0">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="m9 12 2 2 4-4"></path>
+                                </svg>
+                                <span data-i18n="modules.how_it_works.p2">Выберите свои ответы и отправьте, чтобы
+                                    увидеть свой результат и подробные объяснения</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="h-5 w-5 text-(--brand) mt-0.5 shrink-0">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="m9 12 2 2 4-4"></path>
+                                </svg>
+                                <span data-i18n="modules.how_it_works.p3">Вы можете пересдавать любой модуль столько
+                                    раз, сколько захотите, чтобы улучшить своё понимание</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="h-5 w-5 text-(--brand) mt-0.5 shrink-0">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="m9 12 2 2 4-4"></path>
+                                </svg>
+                                <span data-i18n="modules.how_it_works.p4">Ваш прогресс автоматически сохраняется и
+                                    отслеживается</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Футер -->
+        <footer class="border-t border-(--border-color) py-8 mt-12 bg-(--bg-page)">
+            <div class="max-w-4xl mx-auto px-4 text-center text-sm text-(--text-muted)">
+                <p class="mb-2" data-i18n="footer.desc">Академический проект для психологического самообразования и
+                    управления стрессом</p>
+                <p>&copy; 2025 Ekaterina Jelanova <span data-i18n="footer.rights">Все права защищены</span></p>
+            </div>
+        </footer>
+
+        <!-- Скрипты -->
+        <script src="./js/translations.js" defer></script>
+        <script src="./js/app.js" defer></script>
+    </body>
+
+</html>

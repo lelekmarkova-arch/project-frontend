@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        (function () {
+            // --- Тема (классы, как в input.css) ---
+            var theme = 'default';
+            var lang = 'ru';
+            try {
+                theme = localStorage.getItem('theme') || theme;
+                lang = localStorage.getItem('lang') || lang;
+            } catch (e) { /* localStorage недоступен — работаем с дефолтами */ }
+
+            // Ставим класс темы (кроме default)
+            var html = document.documentElement;
+            html.classList.remove('theme-dark', 'theme-blue', 'theme-sunset', 'theme-green', 'theme-contrast');
+            if (theme && theme !== 'default') {
+                html.classList.add('theme-' + theme);
+            }
+
+            // Язык — через атрибуты (тут всё было верно)
+            html.dataset.lang = lang;
+            html.lang = lang;
+        })();
+    </script>
+
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
+    <title>Образовательное руководство</title>
+    <meta name="description"
+        content="Научитесь управлять стрессом с помощью научно обоснованных техник. Онлайн-курс для студентов, специалистов и всех, кто хочет улучшить качество жизни.">
+    <meta name="keywords"
+        content="управление стрессом, антистресс, техники релаксации, психология, осознанность, эмоциональное здоровье">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Управление стрессом: учёба, работа и личная жизнь">
+    <meta property="og:description"
+        content="Научитесь управлять стрессом с помощью научно обоснованных техник. Онлайн-курс для студентов, специалистов и всех, кто хочет улучшить качество жизни.">
+    <meta property="og:type" content="website">
+    <link href="./dist/output.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-(--bg-page) text-(--text-primary) transition-colors duration-300 min-h-screen flex flex-col">
+
+    <!-- Шапка -->
+    <header class="bg-theme-card shadow-sm border-b border-(--border-color)">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 py-4">
+            <div class="flex items-center justify-between gap-4 flex-wrap">
+
+                <!-- Левая часть: Навигация -->
+                <div class="flex items-center gap-4">
+                    <!-- Кнопка "Главная" -->
+                    <a href="index.html">
+                        <button
+                            class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 hover:bg-theme-muted text-theme-primary"
+                            data-i18n="nav.home">
+                            Главная
+                        </button>
+                    </a>
+
+                    <!-- Кнопка "Руководство" -->
+                    <a href="modules.html">
+                        <button
+                            class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 disabled:pointer-events-none disabled:opacity-50 h-9 px-4 py-2 hover:bg-theme-muted text-theme-primary"
+                            data-i18n="nav.guide">
+                            Руководство
+                        </button>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="flex-1 px-6 py-12">
+        <div class="max-w-4xl mx-auto">
+
+            <!-- Заголовок -->
+            <div class="text-center mb-10">
+                <h1 class="text-3xl md:text-4xl font-bold mb-3" data-i18n="practice.title">Журнал практики</h1>
+                <p class="text-gray-500" data-i18n="practice.subtitle">Отслеживайте свои сессии релаксации и прогресс
+                </p>
+            </div>
+
+            <!-- Карточка: Недельная цель -->
+            <div class="bg-theme-card border border-(--border-color) rounded-xl p-6 shadow-sm mb-8 flex flex-col gap-6">
+
+                <!-- Шапка карточки -->
+                <div class="flex items-center justify-between gap-4 flex-wrap">
+                    <h2 class="leading-none font-semibold text-lg text-theme-primary" data-i18n="practice.goal.title">
+                        Недельная цель
+                    </h2>
+
+                    <!-- Кнопка "Изменить цель" (видна только в режиме просмотра) -->
+                    <button id="btn-edit-goal"
+                        class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all border border-(--border-color) bg-transparent shadow-xs hover:bg-(--bg-muted) h-8 rounded-md gap-1.5 px-3"
+                        data-i18n="practice.goal.edit">
+                        Изменить цель
+                    </button>
+                </div>
+
+                <!-- РЕЖИМ ПРОСМОТРА -->
+                <div id="goal-view" class="space-y-4">
+                    <div class="text-center">
+                        <div class="text-5xl font-bold text-blue-600 mb-2">
+                            <span id="sessions-count">0</span>/<span id="sessions-total">3</span>
+                        </div>
+                        <p class="text-gray-500" data-i18n="practice.goal.sessions">
+                            сессий на этой неделе
+                        </p>
+                    </div>
+
+                    <div class="w-full bg-(--bg-muted) rounded-full h-4 overflow-hidden">
+                        <div id="progress-bar" class="bg-blue-600 h-4 rounded-full transition-all duration-500"
+                            style="width: 0%;"></div>
+                    </div>
+
+                    <p class="text-center text-sm text-gray-500">
+                        <span id="progress-percent">0</span>% <span data-i18n="practice.goal.progress">прогресс на этой
+                            неделе</span>
+                    </p>
+                </div>
+
+                <!-- РЕЖИМ РЕДАКТИРОВАНИЯ (скрыт по умолчанию) -->
+                <div id="goal-edit" class="hidden space-y-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium leading-none text-theme-primary"
+                            data-i18n="practice.goal.editLabel">
+                            Целевое количество сессий в неделю
+                        </label>
+                        <input type="range" id="goal-slider" min="1" max="10" value="3"
+                            class="w-full custom-range cursor-pointer"
+                            oninput="document.getElementById('goal-slider-val').textContent = this.value; updateSliderColor(this);">
+                    </div>
+
+                    <!-- Большая цифра, как на скриншоте -->
+                    <div class="text-center text-4xl font-bold text-blue-600">
+                        <span id="goal-slider-val">3</span>
+                    </div>
+
+                    <!-- Кнопки управления -->
+                    <div class="flex gap-3">
+                        <button type="button" id="btn-cancel-goal"
+                            class="flex-1 inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all border border-(--border-color) bg-transparent shadow-xs hover:bg-(--bg-muted) h-9 rounded-md px-4"
+                            data-i18n="practice.goal.cancel">
+                            Отмена
+                        </button>
+                        <button type="button" id="btn-save-goal"
+                            class="flex-1 inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all bg-(--brand) text-white hover:opacity-90 h-9 rounded-md px-4"
+                            data-i18n="practice.goal.save">
+                            Сохранить цель
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Карточка: Статистика (появляется после первой записи) -->
+            <div id="stats-card"
+                class="hidden bg-theme-card border border-(--border-color) rounded-xl p-6 md:p-8 shadow-sm mb-8 flex flex-col gap-6">
+
+                <!-- Заголовок -->
+                <div>
+                    <h2 class="leading-none font-semibold text-lg text-theme-primary" data-i18n="practice.stats.title">
+                        Статистика
+                    </h2>
+                </div>
+
+                <!-- Сетка с цифрами -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+                    <div class="text-center">
+                        <div id="stat-total" class="text-3xl font-bold text-blue-600">0</div>
+                        <div class="text-sm text-(--text-secondary) mt-1" data-i18n="practice.stats.total">Всего сессий
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <div id="stat-avg-drop" class="text-3xl font-bold text-green-600">0</div>
+                        <div class="text-sm text-(--text-secondary) mt-1" data-i18n="practice.stats.avgDrop">Средн.
+                            снижение стресса</div>
+                    </div>
+
+                    <div class="text-center">
+                        <div id="stat-avg-before" class="text-3xl font-bold text-orange-600">0</div>
+                        <div class="text-sm text-(--text-secondary) mt-1" data-i18n="practice.stats.avgBefore">Средн.
+                            уровень до</div>
+                    </div>
+
+                    <div class="text-center">
+                        <div id="stat-avg-after" class="text-3xl font-bold text-teal-600">0</div>
+                        <div class="text-sm text-(--text-secondary) mt-1" data-i18n="practice.stats.avgAfter">Средн.
+                            уровень после</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Карточка: Записать новую сессию -->
+            <div
+                class="bg-theme-card border border-(--border-color) rounded-xl p-6 md:p-8 shadow-sm mb-8 flex flex-col gap-6">
+
+                <!-- Заголовок карточки -->
+                <div>
+                    <h2 class="leading-none font-semibold text-lg text-theme-primary" data-i18n="practice.form.title">
+                        Записать новую сессию
+                    </h2>
+                </div>
+
+                <!-- Форма -->
+                <form id="practice-form" class="space-y-6">
+
+                    <!-- 1. Техника -->
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-2 text-sm leading-none font-medium text-theme-primary"
+                            data-i18n="practice.form.technique">
+                            Техника
+                        </label>
+
+                        <!-- Кастомный селект -->
+                        <div class="relative inline-block w-full md:w-auto" id="custom-select-wrapper">
+                            <button type="button" id="custom-select-btn"
+                                class="flex w-full md:w-auto min-w-[200px] items-center justify-between gap-3 rounded-md border border-(--border-color) bg-(--bg-card) px-3 py-2 text-sm text-theme-primary shadow-sm focus:outline-none focus:ring-2 focus:ring-(--brand) h-9">
+                                <span id="custom-select-text" class="truncate text-left text-(--text-secondary)"
+                                    data-i18n="practice.form.selectTechnique">Выберите технику</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="opacity-50 shrink-0">
+                                    <path d="m6 9 6 6 6-6" />
+                                </svg>
+                            </button>
+
+                            <!-- Выпадающий список -->
+                            <div id="custom-select-options"
+                                class="hidden absolute left-0 top-full z-50 mt-1 w-max min-w-full rounded-md border border-(--border-color) bg-(--bg-card) py-1 shadow-lg text-sm text-theme-primary">
+                                <div class="cursor-pointer px-4 py-2.5 hover:bg-(--bg-muted) transition-colors"
+                                    data-value="practice.form.tech1" data-i18n="practice.form.tech1">Дыхание для
+                                    расслабления</div>
+                                <div class="cursor-pointer px-4 py-2.5 hover:bg-(--bg-muted) transition-colors"
+                                    data-value="practice.form.tech2" data-i18n="practice.form.tech2">Прогрессивная
+                                    мышечная релаксация</div>
+                                <div class="cursor-pointer px-4 py-2.5 hover:bg-(--bg-muted) transition-colors"
+                                    data-value="practice.form.tech3" data-i18n="practice.form.tech3">Техника заземления
+                                    «5–4–3–2–1»</div>
+                                <div class="cursor-pointer px-4 py-2.5 hover:bg-(--bg-muted) transition-colors"
+                                    data-value="practice.form.tech4" data-i18n="practice.form.tech4">Техника «Безопасное
+                                    место»</div>
+                            </div>
+                            <input type="hidden" id="technique" name="technique" value="">
+                        </div>
+                    </div>
+
+                    <!-- Стресс до -->
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-2 text-sm leading-none font-medium text-theme-primary">
+                            <span data-i18n="practice.form.stressBefore">Уровень стресса до практики</span>: <span
+                                id="stress-before-val" class="font-bold">5</span>/10
+                        </label>
+                        <input type="range" id="stress-before" min="1" max="10" value="5"
+                            class="w-full custom-range cursor-pointer"
+                            oninput="document.getElementById('stress-before-val').textContent = this.value; updateSliderColor(this);">
+                    </div>
+
+                    <!-- Стресс после -->
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-2 text-sm leading-none font-medium text-theme-primary">
+                            <span data-i18n="practice.form.stressAfter">Уровень стресса после практики</span>: <span
+                                id="stress-after-val" class="font-bold">5</span>/10
+                        </label>
+                        <input type="range" id="stress-after" min="1" max="10" value="5"
+                            class="w-full custom-range cursor-pointer"
+                            oninput="document.getElementById('stress-after-val').textContent = this.value; updateSliderColor(this);">
+                    </div>
+
+                    <!-- 4. Заметки -->
+                    <div class="space-y-2">
+                        <label for="notes"
+                            class="flex items-center gap-2 text-sm leading-none font-medium text-theme-primary"
+                            data-i18n="practice.form.notes">
+                            Заметки (необязательно)
+                        </label>
+                        <textarea id="notes" rows="3"
+                            class="resize-none flex min-h-[80px] w-full rounded-md border border-(--border-color) bg-transparent px-3 py-2 text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-(--brand) md:text-sm text-theme-primary placeholder:text-(--text-secondary)"
+                            placeholder="Как вы себя чувствовали? Что помогло?"
+                            data-i18n-placeholder="practice.form.notesPlaceholder"></textarea>
+                    </div>
+
+                    <!-- 5. Кнопка отправки -->
+                    <button type="submit"
+                        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--brand) bg-(--brand) text-white hover:opacity-90 h-9 px-4 py-2 w-full"
+                        data-i18n="practice.form.submit">
+                        Сохранить запись
+                    </button>
+
+                </form>
+            </div>
+
+            <!-- Карточка: История практики -->
+            <div
+                class="bg-theme-card border border-(--border-color) rounded-xl p-6 md:p-8 shadow-sm mb-8 flex flex-col gap-6">
+
+                <!-- Заголовок карточки -->
+                <div>
+                    <h2 class="leading-none font-semibold text-lg text-theme-primary"
+                        data-i18n="practice.history.title">
+                        История практики
+                    </h2>
+                </div>
+
+                <!-- Контент -->
+                <div>
+                    <!-- Пустое состояние -->
+                    <div id="history-empty" class="text-center py-10 text-(--text-secondary)">
+                        <p data-i18n="practice.history.empty">У вас пока нет записей. Начните отслеживать свою практику!
+                        </p>
+                    </div>
+
+                    <!-- Список записей -->
+                    <div id="history-list" class="space-y-4 hidden">
+                        <!-- Сюда JS будет вставлять карточки -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Футер -->
+    <footer class="border-t border-(--border-color) py-8 text-center text-sm text-gray-500 bg-(--bg-card)">
+        <p class="mb-2" data-i18n="footer.desc">Академический проект для психологического самообразования и управления
+            стрессом</p>
+        <p data-i18n="footer.copy">© 2025 Ekaterina Jelanowa Все права защищены</p>
+    </footer>
+
+    <script src="./js/translations.js"></script>
+    <script src="./js/app.js" defer></script>
+</body>
+
+</html>

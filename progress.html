@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        (function () {
+            // --- Тема (классы, как в input.css) ---
+            var theme = 'default';
+            var lang = 'ru';
+            try {
+                theme = localStorage.getItem('theme') || theme;
+                lang = localStorage.getItem('lang') || lang;
+            } catch (e) { /* localStorage недоступен — работаем с дефолтами */ }
+
+            // Ставим класс темы (кроме default)
+            var html = document.documentElement;
+            html.classList.remove('theme-dark', 'theme-blue', 'theme-sunset', 'theme-green', 'theme-contrast');
+            if (theme && theme !== 'default') {
+                html.classList.add('theme-' + theme);
+            }
+
+            // Язык — через атрибуты (тут всё было верно)
+            html.dataset.lang = lang;
+            html.lang = lang;
+        })();
+    </script>
+
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
+    <title>Образовательное руководство</title>
+    <meta name="description"
+        content="Научитесь управлять стрессом с помощью научно обоснованных техник. Онлайн-курс для студентов, специалистов и всех, кто хочет улучшить качество жизни.">
+    <meta name="keywords"
+        content="управление стрессом, антистресс, техники релаксации, психология, осознанность, эмоциональное здоровье">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Управление стрессом: учёба, работа и личная жизнь">
+    <meta property="og:description"
+        content="Научитесь управлять стрессом с помощью научно обоснованных техник. Онлайн-курс для студентов, специалистов и всех, кто хочет улучшить качество жизни.">
+    <meta property="og:type" content="website">
+    <link href="./dist/output.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-(--bg-page) text-(--text-primary) transition-colors duration-300">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 border-b border-(--border-color) bg-(--bg-page)/80 backdrop-blur">
+        <div class="px-4 md:px-8">
+            <div class="grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-2">
+
+                <div class="justify-self-start">
+                    <a href="/"
+                        class="inline-flex items-center gap-2 rounded-md text-sm font-medium px-3 py-2 text-(--text-primary) hover:bg-(--bg-muted) transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            aria-hidden="true">
+                            <path d="m12 19-7-7 7-7"></path>
+                            <path d="M19 12H5"></path>
+                        </svg>
+                        <span class="hidden sm:inline" data-i18n="nav.home">Главная</span>
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-2 min-w-0 justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-trending-up h-5 w-5" style="color: var(--brand);" aria-hidden="true">
+                        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                        <polyline points="16 7 22 7 22 13"></polyline>
+                    </svg>
+                    <span class="font-semibold truncate text-(--text-primary)" data-i18n="progress.header.title">Мой
+                        прогресс</span>
+                </div>
+
+                <div class="justify-self-end">
+                    <a href="modules.html"
+                        class="inline-flex items-center justify-center rounded-md text-sm font-medium h-9 px-4 bg-(--brand) text-white hover:opacity-90 transition-opacity whitespace-nowrap"
+                        data-i18n="nav.modules">Интерактивные модули</a>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center space-y-4 mb-12">
+            <h1 class="text-4xl font-bold" data-i18n="progress.pageTitle">Ваш прогресс</h1>
+            <p class="text-lg opacity-70" data-i18n="progress.pageSubtitle">
+                Отслеживайте свой путь обучения и посмотрите, как далеко вы продвинулись
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+
+            <!-- Карточка 1: Модули завершены -->
+            <div class="flex flex-col gap-6 rounded-xl border py-6 shadow-sm"
+                style="background-color: var(--bg-card); border-color: var(--border-color);">
+                <div class="grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6">
+                    <div class="font-semibold text-lg flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="h-5 w-5" style="color: var(--brand);" aria-hidden="true">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="m9 12 2 2 4-4"></path>
+                        </svg>
+                        <span data-i18n="progress.modulesCompletedTitle">Модули завершены</span>
+                    </div>
+                </div>
+                <div class="px-6">
+                    <div class="space-y-2">
+                        <div id="completed-count" class="text-4xl font-bold">0 / 6</div>
+                        <div class="flex items-center gap-2">
+                            <div class="flex-1 rounded-full h-3" style="background-color: var(--bg-muted);">
+                                <div id="completed-bar" class="rounded-full h-3 transition-all duration-500"
+                                    style="width: 0%; background-color: var(--brand);"></div>
+                            </div>
+                            <span id="completed-percent" class="text-sm font-medium">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 2: Средний результат -->
+            <div class="flex flex-col gap-6 rounded-xl border py-6 shadow-sm"
+                style="background-color: var(--bg-card); border-color: var(--border-color);">
+                <div class="grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6">
+                    <div class="font-semibold text-lg flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="h-5 w-5" style="color: var(--brand);" aria-hidden="true">
+                            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                            <polyline points="16 7 22 7 22 13"></polyline>
+                        </svg>
+                        <span data-i18n="progress.averageTitle">Средний результат</span>
+                    </div>
+                </div>
+                <div class="px-6">
+                    <div class="space-y-2">
+                        <div id="average-score" class="text-4xl font-bold">—</div>
+                        <p class="text-sm opacity-70" data-i18n="progress.averageSubtitle">
+                            Пройдите тест, чтобы увидеть свой результат
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Карточка "Прогресс по модулям" -->
+        <div class="flex flex-col gap-6 rounded-xl border py-6 shadow-sm"
+            style="background-color: var(--bg-card); border-color: var(--border-color);">
+            <div class="grid auto-rows-min items-start gap-2 px-6">
+                <div class="leading-none font-semibold" data-i18n="progress.modulesProgressTitle">
+                    Прогресс по модулям
+                </div>
+            </div>
+            <div class="px-6">
+                <div id="progress-list" class="space-y-4"></div>
+            </div>
+        </div>
+
+        <!-- Блок "Продолжайте!" -->
+        <div id="keep-going-card" class="flex flex-col gap-6 rounded-xl border py-6 shadow-sm mt-6"
+            style="background-color: var(--bg-muted); border-color: var(--border-color);">
+
+            <div class="px-6">
+                <div class="text-center space-y-4">
+                    <h3 class="text-xl font-bold" data-i18n="progress.keepGoingTitle">Продолжайте!</h3>
+                    <p class="opacity-70" id="continue-message" data-i18n="progress.keepGoingText">
+                        Вы завершили 0 из 6 модулей. Продолжайте учиться, чтобы овладеть управлением стрессом!
+                    </p>
+                    <a href="./modules.html"
+                        class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all h-10 rounded-md px-6"
+                        style="background-color: var(--brand); color: #fff;" data-i18n="progress.continueBtn">
+                        Продолжить обучение
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Блоки, которые появляются при 100% завершении -->
+        <div id="completion-blocks" class="hidden space-y-6 mt-6">
+
+            <!-- Карточка: Поздравляем! -->
+            <div class="flex flex-col gap-6 rounded-xl border py-6 shadow-sm"
+                style="background-color: color-mix(in srgb, #22c55e 10%, var(--bg-card)); border-color: color-mix(in srgb, #22c55e 50%, transparent);">
+                <div class="px-6 pt-6">
+                    <div class="text-center space-y-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="h-16 w-16 mx-auto" style="color: #16a34a;">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="m9 12 2 2 4-4"></path>
+                        </svg>
+                        <h3 class="text-2xl font-bold" data-i18n="progress.congratsTitle">Поздравляем!</h3>
+                        <p class="opacity-70" data-i18n="progress.congratsText">
+                            Вы завершили все модули! Теперь у вас есть прочная основа в техниках управления стрессом. Не
+                            забывайте регулярно практиковать эти навыки.
+                        </p>
+                        <div class="flex gap-4 justify-center pt-2">
+                            <a href="./guide.html"
+                                class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-9 px-4 py-2 rounded-md border"
+                                style="border-color: var(--border-color); background-color: transparent; color: var(--text-primary);"
+                                data-i18n="progress.viewGuideBtn">
+                                Просмотреть руководство
+                            </a>
+                            <a href="./modules.html"
+                                class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all h-9 px-4 py-2 rounded-md"
+                                style="background-color: var(--brand); color: #fff;" data-i18n="progress.retakeBtn">
+                                Пересдать модули
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка: Сертификат -->
+            <div class="flex flex-col gap-6 rounded-xl border py-6 shadow-sm"
+                style="background: linear-gradient(to bottom right, color-mix(in srgb, #3b82f6 10%, var(--bg-card)), color-mix(in srgb, #6366f1 10%, var(--bg-card))); border-color: color-mix(in srgb, #3b82f6 50%, transparent);">
+                <div class="px-6 pt-6">
+                    <div class="space-y-6">
+
+                        <div class="text-center space-y-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="h-12 w-12 mx-auto" style="color: #2563eb;">
+                                <path
+                                    d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526">
+                                </path>
+                                <circle cx="12" cy="8" r="6"></circle>
+                            </svg>
+                            <h3 class="text-2xl font-bold" data-i18n="progress.certTitle">Получите свой сертификат</h3>
+                            <p class="opacity-70" data-i18n="progress.certText">
+                                Скачайте сертификат о прохождении курса, чтобы отметить своё достижение!
+                            </p>
+                        </div>
+
+                    
+                        <div class="max-w-md mx-auto space-y-4">
+
+                            <div class="space-y-2 text-left">
+                                <label class="text-sm font-medium" data-i18n="progress.certNameLabel">Полное имя</label>
+                                <input type="text" id="cert-name" placeholder="Введите ваше полное имя"
+                                    data-i18n-placeholder="progress.certNamePlaceholder"
+                                    class="w-full h-9 rounded-md border px-3 py-1 text-center bg-transparent focus:outline-none focus:ring-2"
+                                    style="border-color: var(--border-color); color: var(--text-primary); --tw-ring-color: var(--brand);">
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-2">
+                                <!-- Активная по умолчанию -->
+                                <button
+                                    class="cert-tpl-btn px-2 py-2 rounded-md text-xs sm:text-sm font-medium transition-all whitespace-normal leading-tight bg-(--brand) text-white border border-transparent"
+                                    data-template="professional" data-i18n="progress.certTemplateProf">
+                                    Профессиональный
+                                </button>
+
+                                <!-- Неактивные -->
+                                <button
+                                    class="cert-tpl-btn px-2 py-2 rounded-md text-xs sm:text-sm font-medium transition-all whitespace-normal leading-tight border border-(--border-color) text-(--text-primary) bg-transparent"
+                                    data-template="academic" data-i18n="progress.certTemplateAcad">
+                                    Академический
+                                </button>
+                                <button
+                                    class="cert-tpl-btn px-2 py-2 rounded-md text-xs sm:text-sm font-medium transition-all whitespace-normal leading-tight border border-(--border-color) text-(--text-primary) bg-transparent"
+                                    data-template="modern" data-i18n="progress.certTemplateMod">
+                                    Современный
+                                </button>
+                            </div>
+
+                        
+                            <div class="pt-2">
+                                <button id="download-cert"
+                                    class="w-full h-10 mb-4 rounded-md font-medium transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    style="background-color: var(--brand); color: #fff;" disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="h-4 w-4">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="7 10 12 15 17 10"></polyline>
+                                        <line x1="12" x2="12" y1="15" y2="3"></line>
+                                    </svg>
+                                    <span data-i18n="progress.certDownloadBtn">Скачать сертификат</span>
+                                </button>
+
+                                <button
+                                    class="w-full h-10 rounded-md font-medium transition-all border disabled:opacity-50 disabled:cursor-not-allowed"
+                                    style="border-color: var(--border-color); background-color: transparent; color: var(--text-primary);"
+                                    disabled data-i18n="progress.certEmailBtn">
+                                    Отправить на email
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-(--border-color) py-8 mt-16">
+        <div class="container mx-auto px-4 md:px-8 max-w-6xl text-center text-sm text-(--text-secondary) space-y-2">
+            <p data-i18n="footer.text">Академический проект для психологического самообразования и управления стрессом
+            </p>
+            <p data-i18n="footer.copy" class="text-xs text-(--text-secondary)">© 2025 Ekaterina Jelanova Все права
+                защищены
+            </p>
+        </div>
+    </footer>
+
+    <script src="./js/translations.js"></script>
+    <script src="./js/app.js"></script>
+</body>
+
+</html>

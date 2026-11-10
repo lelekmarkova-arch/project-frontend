@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        (function () {
+            // --- Тема (классы, как в input.css) ---
+            var theme = 'default';
+            var lang = 'ru';
+            try {
+                theme = localStorage.getItem('theme') || theme;
+                lang = localStorage.getItem('lang') || lang;
+            } catch (e) { /* localStorage недоступен — работаем с дефолтами */ }
+
+            // Ставим класс темы (кроме default)
+            var html = document.documentElement;
+            html.classList.remove('theme-dark', 'theme-blue', 'theme-sunset', 'theme-green', 'theme-contrast');
+            if (theme && theme !== 'default') {
+                html.classList.add('theme-' + theme);
+            }
+
+            // Язык — через атрибуты (тут всё было верно)
+            html.dataset.lang = lang;
+            html.lang = lang;
+        })();
+    </script>
+
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
+    <title>Образовательное руководство</title>
+    <meta name="description"
+        content="Научитесь управлять стрессом с помощью научно обоснованных техник. Онлайн-курс для студентов, специалистов и всех, кто хочет улучшить качество жизни.">
+    <meta name="keywords"
+        content="управление стрессом, антистресс, техники релаксации, психология, осознанность, эмоциональное здоровье">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Управление стрессом: учёба, работа и личная жизнь">
+    <meta property="og:description"
+        content="Научитесь управлять стрессом с помощью научно обоснованных техник. Онлайн-курс для студентов, специалистов и всех, кто хочет улучшить качество жизни.">
+    <meta property="og:type" content="website">
+    <link href="./dist/output.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-(--bg-page) text-(--text-primary) transition-colors duration-300">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 border-b border-(--border-color) bg-(--bg-page)/80 backdrop-blur">
+        <div class="px-4 md:px-8">
+            <div class="grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-2">
+
+                <div class="justify-self-start">
+                    <a href="/"
+                        class="inline-flex items-center gap-2 rounded-md text-sm font-medium px-3 py-2 text-(--text-primary) hover:bg-(--bg-muted) transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            aria-hidden="true">
+                            <path d="m12 19-7-7 7-7"></path>
+                            <path d="M19 12H5"></path>
+                        </svg>
+                        <span class="hidden sm:inline" data-i18n="nav.home">Главная</span>
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-2 min-w-0 justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-(--brand) shrink-0" aria-hidden="true">
+                        <path d="M12 7v14"></path>
+                        <path
+                            d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z">
+                        </path>
+                    </svg>
+                    <span class="font-semibold truncate text-(--text-primary)"
+                        data-i18n="guide.header.title">Образовательное руководство</span>
+                </div>
+
+                <div class="justify-self-end">
+                    <a href="modules.html"
+                        class="inline-flex items-center justify-center rounded-md text-sm font-medium h-9 px-4 bg-(--brand) text-white hover:opacity-90 transition-opacity whitespace-nowrap"
+                        data-i18n="nav.modules">Интерактивные модули</a>
+                </div>
+
+            </div>
+        </div>
+    </header>
+    <main class="max-w-5xl mx-auto px-4 md:px-8 py-8 md:py-12">
+        <div class="space-y-8">
+            <!-- Заголовок страницы -->
+            <div class="text-center space-y-4 mb-12">
+                <h1 class="text-4xl sm:text-4xl font-bold text-(--text-primary)" data-i18n="guide.title">Образовательное
+                    руководство</h1>
+                <p class="text-base sm:text-lg text-(--text-secondary) max-w-3xl mx-auto" data-i18n="guide.subtitle">
+                    Прочитайте это всеобъемлющее руководство, чтобы понять основы управления стрессом. Каждый раздел
+                    основывается на предыдущем, чтобы дать вам полную основу.
+                </p>
+            </div>
+
+            <!-- Содержание -->
+            <div class="bg-(--bg-card) border border-(--border-color) rounded-xl p-6 shadow-sm mb-8">
+                <div class="mb-4">
+                    <h2 class="font-semibold text-xl text-(--text-primary)" data-i18n="guide.toc.title">Содержание</h2>
+                </div>
+                <div class="grid gap-1">
+
+                    <a href="#understanding-stress"
+                        class="text-left p-3 rounded-lg hover:bg-(--bg-muted) transition-colors flex items-center justify-between group">
+                        <span class="font-medium text-(--text-primary)" data-i18n="guide.ch1.title">1. Понимание
+                            стресса: что это такое и как он влияет на вас</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-(--text-secondary) group-hover:text-(--text-primary) transition-colors">
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
+                    </a>
+
+                    <a href="#identifying-stressors"
+                        class="text-left p-3 rounded-lg hover:bg-(--bg-muted) transition-colors flex items-center justify-between group">
+                        <span class="font-medium text-(--text-primary)" data-i18n="guide.ch2.title">2. Определение ваших
+                            личных стрессоров</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-(--text-secondary) group-hover:text-(--text-primary) transition-colors">
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
+                    </a>
+
+                    <a href="#cognitive-restructuring"
+                        class="text-left p-3 rounded-lg hover:bg-(--bg-muted) transition-colors flex items-center justify-between group">
+                        <span class="font-medium text-(--text-primary)" data-i18n="guide.ch3.title">3. Когнитивная
+                            реструктуризация: изменение ваших моделей мышления</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-(--text-secondary) group-hover:text-(--text-primary) transition-colors">
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
+                    </a>
+
+                    <a href="#time-management"
+                        class="text-left p-3 rounded-lg hover:bg-(--bg-muted) transition-colors flex items-center justify-between group">
+                        <span class="font-medium text-(--text-primary)" data-i18n="guide.ch4.title">4. Стратегии
+                            управления временем и приоритизации</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-(--text-secondary) group-hover:text-(--text-primary) transition-colors">
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
+                    </a>
+
+                    <a href="#relaxation-techniques"
+                        class="text-left p-3 rounded-lg hover:bg-(--bg-muted) transition-colors flex items-center justify-between group">
+                        <span class="font-medium text-(--text-primary)" data-i18n="guide.ch5.title">5. Техники
+                            релаксации и осознанности</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-(--text-secondary) group-hover:text-(--text-primary) transition-colors">
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
+                    </a>
+
+                    <a href="#physical-activity"
+                        class="text-left p-3 rounded-lg hover:bg-(--bg-muted) transition-colors flex items-center justify-between group">
+                        <span class="font-medium text-(--text-primary)" data-i18n="guide.ch6.title">6. Роль физической
+                            активности и сна</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-(--text-secondary) group-hover:text-(--text-primary) transition-colors">
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
+                    </a>
+
+                    <a href="#social-support"
+                        class="text-left p-3 rounded-lg hover:bg-(--bg-muted) transition-colors flex items-center justify-between group">
+                        <span class="font-medium text-(--text-primary)" data-i18n="guide.ch7.title">7. Построение и
+                            использование социальной поддержки</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-(--text-secondary) group-hover:text-(--text-primary) transition-colors">
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
+                    </a>
+
+                    <a href="#healthy-habits"
+                        class="text-left p-3 rounded-lg hover:bg-(--bg-muted) transition-colors flex items-center justify-between group">
+                        <span class="font-medium text-(--text-primary)" data-i18n="guide.ch8.title">8. Питание и
+                            здоровые привычки образа жизни</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-(--text-secondary) group-hover:text-(--text-primary) transition-colors">
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
+                    </a>
+
+                    <a href="#boundaries-balance"
+                        class="text-left p-3 rounded-lg hover:bg-(--bg-muted) transition-colors flex items-center justify-between group">
+                        <span class="font-medium text-(--text-primary)" data-i18n="guide.ch9.title">9. Установление
+                            границ и достижение баланса</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-(--text-secondary) group-hover:text-(--text-primary) transition-colors">
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
+                    </a>
+
+                    <a href="#long-term-resilience"
+                        class="text-left p-3 rounded-lg hover:bg-(--bg-muted) transition-colors flex items-center justify-between group">
+                        <span class="font-medium text-(--text-primary)" data-i18n="guide.ch10.title">10. Построение
+                            долгосрочной устойчивости и роста</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="text-(--text-secondary) group-hover:text-(--text-primary) transition-colors">
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Карточка 1 -->
+            <div class="bg-(--bg-card) border border-(--border-color) rounded-xl p-6 shadow-sm scroll-mt-20 mb-8"
+                id="understanding-stress">
+                <h2 class="font-semibold text-2xl text-(--brand) mb-4" data-i18n="guide.ch1.heading">
+                    1. Понимание стресса: что это такое и как он влияет на вас
+                </h2>
+                <div class="space-y-6">
+                    <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch1.text">
+                        Стресс — это естественная физиологическая и психологическая реакция на сложные или угрожающие
+                        ситуации. Когда вы сталкиваетесь с требованиями, превышающими вашу предполагаемую способность
+                        справиться, ваше тело активирует реакцию «бей или беги», выделяя гормоны, такие как кортизол и
+                        адреналин. Хотя острый стресс может улучшить производительность и концентрацию, хронический
+                        стресс от длительного академического давления, рабочих дедлайнов и личных обязанностей может
+                        привести к серьёзным последствиям для здоровья, включая тревогу, депрессию, ослабление иммунной
+                        функции и сердечно-сосудистые проблемы. Понимание того, что стресс не является по своей сути
+                        негативным — а скорее ваши отношения с ним — это первый шаг к эффективному управлению.
+                    </p>
+
+                    <!-- Аккордеоны внутри карточки -->
+                    <div class="space-y-3 mt-6">
+                        <!-- Аккордеон 1: Физические симптомы стресса -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch1-1">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch1.acc1">
+                                    Физические симптомы стресса
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch1-1" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch1.acc1.text">
+                                    Общие физические проявления включают головные боли, мышечное напряжение, усталость,
+                                    проблемы с пищеварением, учащённое сердцебиение и нарушения сна. Распознавание этих
+                                    ранних предупреждающих признаков позволяет вам вмешаться до того, как стресс станет
+                                    подавляющим.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Аккордеон 2: Эмоциональные и когнитивные эффекты -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch1-2">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch1.acc2">
+                                    Эмоциональные и когнитивные эффекты
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch1-2" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch1.acc2.text">
+                                    Стресс влияет на ваше психическое состояние через раздражительность, тревогу,
+                                    трудности с концентрацией, навязчивые мысли и чувство подавленности. Эти когнитивные
+                                    изменения могут ухудшить принятие решений и академическую успеваемость, создавая
+                                    порочный круг.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 2 -->
+            <div class="bg-(--bg-card) border border-(--border-color) rounded-xl p-6 shadow-sm scroll-mt-20 mb-8"
+                id="identifying-stressors">
+                <h2 class="font-semibold text-2xl text-(--brand) mb-4" data-i18n="guide.ch2.heading">
+                    2. Определение ваших личных стрессоров
+                </h2>
+                <div class="space-y-6">
+                    <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch2.text">
+                        Разные люди испытывают стресс от разных источников. Для студентов и молодых специалистов
+                        распространённые стрессоры включают академические дедлайны, финансовое давление, социальные
+                        ожидания, неопределённость карьеры, проблемы в отношениях и постоянную необходимость
+                        балансировать множество ролей. Проведение личного аудита стресса — отслеживание того, когда вы
+                        чувствуете наибольший стресс и что вызывает эти чувства — обеспечивает важное самосознание.
+                        Ведите дневник стресса в течение одной недели, отмечая ситуации, повышающие ваш уровень стресса,
+                        ваши физические и эмоциональные реакции и стратегии преодоления, которые вы естественно
+                        используете. Эти данные становятся основой для разработки целевых техник управления стрессом.
+                    </p>
+
+                    <!-- Аккордеоны внутри карточки -->
+                    <div class="space-y-3 mt-6">
+                        <!-- Аккордеон 1: Академические стрессоры -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch2-1">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch2.acc1">
+                                    Академические стрессоры
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch2-1" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch2.acc1.text">
+                                    Давление экзаменов, дедлайны заданий, страх неудачи, конкуренция со сверстниками и
+                                    синдром самозванца особенно распространены в академической среде. Понимание того,
+                                    какие конкретные аспекты вашей учёбы вызывают наибольший стресс, помогает вам
+                                    разработать целевые стратегии преодоления.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Аккордеон 2: Проблемы баланса работы и личной жизни -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch2-2">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch2.acc2">
+                                    Проблемы баланса работы и личной жизни
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch2-2" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch2.acc2.text">
+                                    Совмещение работы на неполный рабочий день, стажировок или начальных карьерных
+                                    позиций наряду с учёбой создаёт уникальное давление. Нехватка времени, конфликтующие
+                                    требования и неспособность полностью участвовать в любой области способствуют
+                                    хроническому стрессу и выгоранию.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 3 -->
+            <div class="bg-(--bg-card) border border-(--border-color) rounded-xl p-6 shadow-sm scroll-mt-20 mb-8"
+                id="cognitive-restructuring">
+                <h2 class="font-semibold text-2xl text-(--brand) mb-4" data-i18n="guide.ch3.heading">
+                    3. Когнитивная реструктуризация: изменение ваших моделей мышления
+                </h2>
+                <div class="space-y-6">
+                    <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch3.text">
+                        Ваша интерпретация событий часто вызывает больше стресса, чем сами события. Когнитивная
+                        реструктуризация, основная техника из когнитивно-поведенческой терапии (КПТ), включает выявление
+                        и оспаривание негативных моделей мышления, которые усиливают стресс. Распространённые
+                        когнитивные искажения включают катастрофизацию (предположение, что произойдёт худшее), мышление
+                        «всё или ничего» (видение ситуаций в чёрно-белом цвете), чрезмерное обобщение (извлечение
+                        широких выводов из отдельных событий) и персонализацию (принятие чрезмерной ответственности за
+                        вещи вне вашего контроля). Распознавая эти паттерны, вы можете сознательно заменить их более
+                        сбалансированными, реалистичными мыслями. Например, вместо «Я провалил этот экзамен, поэтому я
+                        полный неудачник», переформулируйте на «Этот экзамен прошёл не очень хорошо, но это одна оценка
+                        среди многих, и я могу извлечь уроки из этого опыта».
+                    </p>
+
+                    <!-- Аккордеоны внутри карточки -->
+                    <div class="space-y-3 mt-6">
+                        <!-- Аккордеон 1: Модель ABC -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch3-1">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch3.acc1">
+                                    Модель ABC
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch3-1" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch3.acc1.text">
+                                    Используйте модель ABC для анализа стрессовых ситуаций: A (Активирующее событие), B
+                                    (Убеждения о событии), C (Последствия/эмоциональная реакция). Изучая и изменяя B, вы
+                                    можете изменить C. Этот систематический подход помогает вам понять, что ваши
+                                    убеждения, а не внешние события, в первую очередь определяют ваши эмоциональные
+                                    реакции.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Аккордеон 2: Мышление, основанное на доказательствах -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch3-2">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch3.acc2">
+                                    Мышление, основанное на доказательствах
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch3-2" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch3.acc2.text">
+                                    Когда возникают негативные мысли, спросите себя: «Какие доказательства поддерживают
+                                    эту мысль? Какие доказательства противоречат ей? Что бы я сказал другу в этой
+                                    ситуации?» Этот подход, основанный на доказательствах, создаёт психологическую
+                                    дистанцию и способствует более объективному, менее эмоционально реактивному
+                                    мышлению.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 4 -->
+            <div class="bg-(--bg-card) border border-(--border-color) rounded-xl p-6 shadow-sm scroll-mt-20 mb-8"
+                id="time-management">
+                <h2 class="font-semibold text-2xl text-(--brand) mb-4" data-i18n="guide.ch4.heading">
+                    4. Стратегии управления временем и приоритизации
+                </h2>
+                <div class="space-y-6">
+                    <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch4.text">
+                        Эффективное управление временем снижает стресс, создавая структуру и предотвращая кризисы в
+                        последнюю минуту. Матрица Эйзенхауэра помогает расставить приоритеты задач по срочности и
+                        важности: сосредоточьтесь на важных, но не срочных задачах (учёба, развитие навыков, построение
+                        отношений), а не постоянно реагируйте на срочные дела. Блокировка времени — выделение
+                        определённых периодов времени для конкретных действий — предотвращает многозадачность и улучшает
+                        концентрацию. Техника Помодоро (25 минут сосредоточенной работы, за которыми следуют 5-минутные
+                        перерывы) повышает производительность, предотвращая выгорание. Важно планировать перерывы и
+                        досуговые мероприятия с той же приверженностью, что и рабочие задачи. Помните закон Паркинсона:
+                        работа расширяется, чтобы заполнить доступное время, поэтому устанавливайте реалистичные
+                        дедлайны и придерживайтесь их.
+                    </p>
+
+                    <!-- Аккордеоны внутри карточки -->
+                    <div class="space-y-3 mt-6">
+                        <!-- Аккордеон 1: Сила слова «нет» -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch4-1">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch4.acc1">
+                                    Сила слова «нет»
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch4-1" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch4.acc1.text">
+                                    Научиться отклонять обязательства, которые не соответствуют вашим приоритетам,
+                                    необходимо для управления стрессом. Каждое «да» чему-то неважному — это «нет» тому,
+                                    что имеет значение. Практикуйте вежливое, но твёрдое установление границ: «Я ценю
+                                    возможность, но мне нужно сосредоточиться на моих текущих обязательствах».
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Аккордеон 2: Планирование гибкости -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch4-2">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch4.acc2">
+                                    Планирование гибкости
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch4-2" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch4.acc2.text">
+                                    Жёсткие графики создают стресс, когда происходят неизбежные сбои. Создавайте
+                                    буферное время между действиями, планируйте на 70-80% вашего доступного времени (не
+                                    100%) и ведите «гибкий список» задач, которые можно выполнить, когда появляется
+                                    неожиданное свободное время или когда вам нужен перерыв от требовательной работы.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 5 -->
+            <div class="bg-(--bg-card) border border-(--border-color) rounded-xl p-6 shadow-sm scroll-mt-20 mb-8"
+                id="relaxation-techniques">
+                <h2 class="font-semibold text-2xl text-(--brand) mb-4" data-i18n="guide.ch5.heading">
+                    5. Техники релаксации и осознанности
+                </h2>
+                <div class="space-y-6">
+                    <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch5.text">
+                        Физические техники релаксации напрямую противодействуют стрессовой реакции, активируя
+                        парасимпатическую нервную систему. Упражнения глубокого дыхания, особенно диафрагмальное дыхание
+                        (глубокое дыхание в живот, а не в грудь), снижают частоту сердечных сокращений и кровяное
+                        давление в течение нескольких минут. Прогрессивная мышечная релаксация — систематическое
+                        напряжение и расслабление групп мышц — снижает физическое напряжение. Медитация осознанности,
+                        которая включает безоценочное осознание опыта настоящего момента, научно доказано снижает
+                        стресс, улучшает эмоциональную регуляцию и улучшает когнитивную функцию. Даже краткая ежедневная
+                        практика (5-10 минут) даёт значительные преимущества. Осознанность не требует устранения мыслей,
+                        а скорее наблюдения за ними, не увлекаясь ими, как наблюдение за облаками, проходящими в небе.
+                    </p>
+
+                    <!-- Аккордеоны внутри карточки -->
+                    <div class="space-y-3 mt-6">
+                        <!-- Аккордеон 1: Дыхание для расслабления (с видео) -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch5-1">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch5.acc1">
+                                    Дыхание для расслабления (техника с объятием и короткими вдохами)
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch5-1" class="accordion-panel hidden p-4 space-y-4">
+
+                                <!-- Видео -->
+                                <div class="w-full max-w-3xl mx-auto mb-6">
+                                    <div class="relative w-full" style="padding-bottom: 56.25%;">
+                                        <video controls class="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                                            style="object-fit: contain;">
+                                            <source src="./videos/breathing-relaxation.mp4" type="video/mp4">
+                                            Ваш браузер не поддерживает видео тег.
+                                        </video>
+                                    </div>
+                                </div>
+
+                                <!-- Текст -->
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch5.acc1.text">
+                                    Эта техника помогает быстро снизить внутреннее напряжение и активировать
+                                    парасимпатическую нервную систему. Пошаговый алгоритм:
+                                    (1) Обхватите себя руками, положив ладони на лопатки.
+                                    (2) Поверните голову влево, не опуская рук.
+                                    (3) Сделайте 4 коротких вдоха подряд через нос.
+                                    (4) Поверните голову прямо, руки удерживайте в том же положении.
+                                    (5) Сделайте ещё 4 коротких вдоха.
+                                    (6) Поверните голову направо.
+                                    (7) Выполните 4 коротких вдоха.
+                                    (8) Затем опустите руки и сделайте медленный длинный выдох через рот.
+                                    (9) Повторяйте цикл до тех пор, пока не почувствуете расслабление.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Аккордеон 2: Последовательное напряжение и расслабление мышц -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch5-2">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch5.acc2">
+                                    Последовательное напряжение и расслабление мышц (прогрессивная релаксация)
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch5-2" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch5.acc2.text">
+                                    Эта техника помогает сбросить мышечные зажимы и снизить тревожность. Пошаговый
+                                    алгоритм: (1) Найдите удобное положение сидя или лёжа. (2) Напрягайте группы мышц по
+                                    очереди сверху вниз: лицо и лоб, челюсть и шею, плечи, руки и кисти, грудь и живот,
+                                    ягодицы, бёдра, голени, стопы. (3) Каждую зону напрягайте на 5–7 секунд, затем
+                                    полностью расслабляйте на 10–15 секунд. (4) Сосредотачивайтесь на ощущении
+                                    «перехода» от напряжения к расслаблению. (5) Продолжайте, пока не пройдёте всё тело.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Аккордеон 3: Техника заземления «5–4–3–2–1» -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch5-3">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch5.acc3">
+                                    Техника заземления «5–4–3–2–1»
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch5-3" class="accordion-panel hidden p-4 space-y-4">
+
+                                <!-- Видео -->
+                                <div class="w-full max-w-3xl mx-auto mb-6">
+                                    <div class="relative w-full" style="padding-bottom: 56.25%;">
+                                        <video controls preload="metadata"
+                                            class="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                                            style="object-fit: contain;">
+                                            <source src="./videos/grounding-technique.mp4" type="video/mp4">
+                                            Ваш браузер не поддерживает видео тег.
+                                        </video>
+                                    </div>
+                                </div>
+
+                                <!-- Таймер заземления -->
+                                <div class="my-6">
+                                    <div
+                                        class="flex flex-col gap-6 rounded-xl py-6 shadow-sm bg-linear-to-br from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 border-2 border-blue-200 dark:border-blue-800">
+                                        <div class="px-6 pt-6">
+                                            <div class="space-y-6">
+
+                                                <div class="text-center">
+                                                    <h3
+                                                        class="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-2" data-i18n="guide.ch5.timer.title">
+                                                        Таймер техники заземления
+                                                    </h3>
+                                                    <p class="text-sm text-(--text-secondary)" data-i18n="guide.ch5.timer.subtitle">
+                                                        Следуйте пошаговым инструкциям для практики техники 5-4-3-2-1
+                                                    </p>
+                                                </div>
+
+                                                <!-- Прогресс-бар -->
+                                                <div
+                                                    class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
+                                                    <div id="grounding-progress"
+                                                        class="bg-linear-to-r from-blue-500 to-indigo-600 h-full transition-all duration-300 ease-linear"
+                                                        style="width: 0%;"></div>
+                                                </div>
+
+                                                <!-- Блок текущего шага -->
+                                                <div id="grounding-active-step" class="text-center space-y-4 py-8">
+                                                    <div id="grounding-step-number"
+                                                        class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-600 text-white text-4xl font-bold shadow-lg">
+                                                        5
+                                                    </div>
+                                                    <div>
+                                                        <h4 id="grounding-step-title"
+                                                            class="text-xl font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                                                            5 предметов, которые вы видите
+                                                        </h4>
+                                                        <p id="grounding-step-desc"
+                                                            class="text-base text-(--text-secondary)">
+                                                            Назовите 5 предметов, которые вы видите вокруг себя
+                                                        </p>
+                                                    </div>
+                                                    <div id="grounding-timer"
+                                                        class="text-5xl font-mono font-bold text-blue-700 dark:text-blue-300 tabular-nums text-center mx-auto inline-block min-w-[5ch]">
+                                                        0:30
+                                                    </div>
+                                                    <p id="grounding-step-label"
+                                                        class="text-sm text-(--text-secondary)">
+                                                        Шаг 1 из 5
+                                                    </p>
+                                                </div>
+                                                <!-- Блок завершения (скрыт по умолчанию) -->
+                                                <div id="grounding-complete" class="text-center space-y-4 py-8 hidden">
+                                                    <div
+                                                        class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-600 text-white text-4xl">
+                                                        ✓
+                                                    </div>
+                                                    <div>
+                                                        <h4
+                                                            class="text-2xl font-semibold text-green-900 dark:text-green-100 mb-2" data-i18n="guide.ch5.timer.completeTitle">
+                                                            Упражнение завершено!
+                                                        </h4>
+                                                        <p class="text-base text-(--text-secondary)" data-i18n="guide.ch5.timer.completeDesc">
+                                                            Отличная работа! Вы завершили упражнение по заземлению.
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Кнопки -->
+                                                <div class="flex justify-center gap-3">
+                                                    <button type="button" id="grounding-start"
+                                                        class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all bg-(--brand) text-white hover:opacity-90 h-10 rounded-md px-6 gap-2">
+                                                        <svg id="grounding-start-icon"
+                                                            xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                                                        </svg>
+                                                        <span id="grounding-start-label">Начать</span>
+                                                    </button>
+
+                                                    <button type="button" id="grounding-reset"
+                                                        class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all border border-(--border-color) bg-transparent hover:bg-(--bg-muted) h-10 rounded-md px-6 gap-2 text-(--text-primary)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8">
+                                                            </path>
+                                                            <path d="M3 3v5h5"></path>
+                                                        </svg>
+                                                        <span data-i18n="guide.ch5.timer.reset">Сброс</span>
+                                                    </button>
+                                                </div>
+
+                                                <!-- Шаги упражнения -->
+                                                <div class="border-t border-(--border-color) pt-4">
+                                                    <p class="text-xs text-center text-(--text-secondary) mb-3" data-i18n="guide.ch5.timer.stepsLabel">
+                                                        Шаги упражнения:
+                                                    </p>
+                                                    <div class="grid grid-cols-5 gap-2">
+                                                        <div data-grounding-step="0"
+                                                            class="grounding-step text-center p-2 rounded-lg transition-all bg-blue-600 text-white scale-110 shadow-md">
+                                                            <div class="text-2xl font-bold">5</div>
+                                                            <div class="text-[10px] leading-tight mt-1" data-i18n="guide.ch5.timer.step1">видите</div>
+                                                        </div>
+                                                        <div data-grounding-step="1"
+                                                            class="grounding-step text-center p-2 rounded-lg transition-all bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
+                                                            <div class="text-2xl font-bold">4</div>
+                                                            <div class="text-[10px] leading-tight mt-1" data-i18n="guide.ch5.timer.step2">теле</div>
+                                                        </div>
+                                                        <div data-grounding-step="2"
+                                                            class="grounding-step text-center p-2 rounded-lg transition-all bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
+                                                            <div class="text-2xl font-bold">3</div>
+                                                            <div class="text-[10px] leading-tight mt-1" data-i18n="guide.ch5.timer.step3">звука</div>
+                                                        </div>
+                                                        <div data-grounding-step="3"
+                                                            class="grounding-step text-center p-2 rounded-lg transition-all bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
+                                                            <div class="text-2xl font-bold">2</div>
+                                                            <div class="text-[10px] leading-tight mt-1" data-i18n="guide.ch5.timer.step4">запаха</div>
+                                                        </div>
+                                                        <div data-grounding-step="4"
+                                                            class="grounding-step text-center p-2 rounded-lg transition-all bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
+                                                            <div class="text-2xl font-bold">1</div>
+                                                            <div class="text-[10px] leading-tight mt-1" data-i18n="guide.ch5.timer.step5">вкус</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Текст -->
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch5.acc3.text">
+                                    Используется для быстрого выхода из тревоги, паники, диссоциации или эмоционального
+                                    перегруза. Пошаговый алгоритм:
+                                    (1) Назовите 5 предметов, которые вы видите вокруг себя.
+                                    (2) Отметьте 4 ощущения в теле (тепло/холод, давление, опора, одежда на коже и т.
+                                    д.).
+                                    (3) Услышьте 3 звука близкие или далёкие.
+                                    (4) Определите 2 запаха реальные или вспомните их.
+                                    (5) Отметьте 1 вкус реальный или мысленный (например: вода, чай, мятный вкус).
+                                    Эта техника возвращает внимание в «здесь и сейчас» и снижает уровень тревоги
+                                    в течение 1-2 минут.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Аккордеон 4: Техника «Безопасное место» -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch5-4">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch5.acc4">
+                                    Техника «Безопасное место»
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch5-4" class="accordion-panel hidden p-4 space-y-4">
+
+                                <!-- Видео -->
+                                <div class="w-full max-w-3xl mx-auto mb-6">
+                                    <div class="relative w-full" style="padding-bottom: 56.25%;">
+                                        <video controls preload="metadata"
+                                            class="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+                                            style="object-fit: contain;">
+                                            <source src="./videos/safe-place-technique.mp4" type="video/mp4">
+                                            Ваш браузер не поддерживает видео тег.
+                                        </video>
+                                    </div>
+                                </div>
+
+                                <!-- Текст -->
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch5.acc4.text">
+                                    Этот метод формирует внутреннюю опору и создаёт состояние спокойствия и
+                                    защищённости.
+                                    Пошаговый алгоритм:
+                                    (1) Закройте глаза и сделайте медленный вдох.
+                                    (2) Представьте место, где вы чувствуете себя максимально спокойно и комфортно
+                                    (пляж, лес, комната, любимый уголок).
+                                    (3) Осмотрите пространство: какие цвета, формы, детали вы видите?
+                                    (4) Прислушайтесь к окружающим звукам: ветер, вода, голоса природы.
+                                    (5) Отметьте ощущения в теле: тепло, лёгкость, расслабленность.
+                                    (6) Добавьте тактильные детали: мягкость воздуха, тепло солнца, гладкость
+                                    поверхности.
+                                    (7) На вдохе «впитывайте» ощущение безопасности, на выдохе расслабляйтесь ещё
+                                    глубже.
+                                    (8) Запомните это состояние как ресурс, к которому можно возвращаться в любой
+                                    момент.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 6 -->
+            <div class="bg-(--bg-card) border border-(--border-color) rounded-xl p-6 shadow-sm scroll-mt-20 mb-8"
+                id="physical-activity">
+                <h2 class="font-semibold text-2xl text-(--brand) mb-4" data-i18n="guide.ch6.heading">
+                    6. Роль физической активности и сна
+                </h2>
+                <div class="space-y-6">
+                    <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch6.text">
+                        Регулярная физическая активность — один из самых эффективных инструментов управления стрессом.
+                        Упражнения высвобождают эндорфины (естественные стимуляторы настроения), снижают гормоны
+                        стресса, улучшают качество сна и обеспечивают здоровый выход для напряжения. Вам не нужны
+                        интенсивные тренировки — даже 20-30 минут умеренной активности, такой как ходьба, езда на
+                        велосипеде или танцы, дают значительные преимущества. Ключ — это последовательность, а не
+                        интенсивность. Не менее важен сон, которым часто жертвуют студенты и молодые специалисты.
+                        Недостаток сна ухудшает когнитивную функцию, эмоциональную регуляцию и устойчивость к стрессу.
+                        Стремитесь к 7-9 часам ночного сна, поддерживайте постоянный график сна, создайте расслабляющую
+                        процедуру перед сном и минимизируйте время перед экраном перед сном. Помните: жертвовать сном
+                        ради учёбы или работы контрпродуктивно, поскольку усталость снижает эффективность и увеличивает
+                        ошибки.
+                    </p>
+
+                    <!-- Аккордеоны внутри карточки -->
+                    <div class="space-y-3 mt-6">
+                        <!-- Аккордеон 1: Перерывы на движение -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch6-1">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch6.acc1">
+                                    Перерывы на движение
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch6-1" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch6.acc1.text">
+                                    Включайте краткие перерывы на движение каждый час во время учёбы или работы.
+                                    Встаньте, потянитесь, походите или сделайте простые упражнения. Эти микроперерывы
+                                    предотвращают физическую скованность, улучшают кровообращение и освежают умственную
+                                    концентрацию, делая ваше время учёбы более продуктивным.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Аккордеон 2: Принципы гигиены сна -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch6-2">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch6.acc2">
+                                    Принципы гигиены сна
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch6-2" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch6.acc2.text">
+                                    Создайте оптимальную среду для сна: прохладная температура (15-19°C), полная
+                                    темнота, минимальный шум. Избегайте кофеина после 14:00, ограничьте алкоголь
+                                    (который нарушает качество сна) и установите процедуру расслабления. Если вы не
+                                    можете заснуть через 20 минут, встаньте и займитесь тихой деятельностью, пока не
+                                    почувствуете сонливость.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 7 -->
+            <div class="bg-(--bg-card) border border-(--border-color) rounded-xl p-6 shadow-sm scroll-mt-20 mb-8"
+                id="social-support">
+                <h2 class="font-semibold text-2xl text-(--brand) mb-4" data-i18n="guide.ch7.heading">
+                    7. Построение и использование социальной поддержки
+                </h2>
+                <div class="space-y-6">
+                    <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch7.text">
+                        Прочные социальные связи — мощный буфер против стресса. Исследования последовательно показывают,
+                        что люди с надёжными сетями социальной поддержки испытывают меньше стресса и быстрее
+                        восстанавливаются после проблем. Однако качество важнее количества — несколько глубоких,
+                        подлинных отношений обеспечивают больше поддержки, чем многочисленные поверхностные связи.
+                        Выделяйте время для значимых взаимодействий с друзьями, семьёй и наставниками. Не стесняйтесь
+                        делиться своими трудностями; уязвимость укрепляет отношения и часто показывает, что другие
+                        сталкиваются с подобными проблемами. Присоединяйтесь к учебным группам, клубам или сообществам,
+                        соответствующим вашим интересам. Профессиональная поддержка через консультирование или терапию —
+                        это не признак слабости, а проактивный шаг к психическому здоровью. Многие университеты
+                        предлагают бесплатные консультационные услуги специально для студентов.
+                    </p>
+
+                    <!-- Аккордеоны внутри карточки -->
+                    <div class="space-y-3 mt-6">
+                        <!-- Аккордеон 1: Эффективная коммуникация -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch7-1">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch7.acc1">
+                                    Эффективная коммуникация
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch7-1" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch7.acc1.text">
+                                    Когда вы ищете поддержку, будьте конкретны в том, что вам нужно: эмоциональная
+                                    валидация, практический совет или просто кто-то, кто выслушает. Используйте
+                                    «я»-утверждения для выражения чувств без обвинений: «Я чувствую себя подавленным,
+                                    когда дедлайны накапливаются», а не «Вы не понимаете мой стресс». Чёткая
+                                    коммуникация помогает другим оказывать соответствующую поддержку.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Аккордеон 2: Взаимная поддержка -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch7-2">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch7.acc2">
+                                    Взаимная поддержка
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch7-2" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch7.acc2.text">
+                                    Отношения процветают на взаимной поддержке. Будьте доступны для других, когда им
+                                    нужна помощь, активно слушайте и проявляйте искренний интерес к их жизни. Поддержка
+                                    других не только укрепляет отношения, но также обеспечивает перспективу на ваши
+                                    собственные проблемы и создаёт чувство цели за пределами личных забот.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 8 -->
+            <div class="bg-(--bg-card) border border-(--border-color) rounded-xl p-6 shadow-sm scroll-mt-20 mb-8"
+                id="healthy-habits">
+                <h2 class="font-semibold text-2xl text-(--brand) mb-4" data-i18n="guide.ch8.heading">
+                    8. Питание и здоровые привычки образа жизни
+                </h2>
+                <div class="space-y-6">
+                    <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch8.text">
+                        То, что вы едите, значительно влияет на ваш уровень стресса и психическое здоровье. Диета с
+                        высоким содержанием обработанных продуктов, сахара и кофеина может усугубить стресс и тревогу, в
+                        то время как цельные продукты, богатые питательными веществами, поддерживают функцию мозга и
+                        эмоциональную стабильность. Сложные углеводы (цельные зёрна, овощи) обеспечивают стабильную
+                        энергию и повышают производство серотонина. Омега-3 жирные кислоты (содержащиеся в рыбе, грецких
+                        орехах, семенах льна) поддерживают здоровье мозга и уменьшают воспаление. Адекватная гидратация
+                        необходима — даже лёгкое обезвоживание ухудшает когнитивную функцию и настроение. Ограничьте
+                        потребление кофеина, особенно во второй половине дня, поскольку он может увеличить тревогу и
+                        нарушить сон. Избегайте использования алкоголя или веществ для преодоления стресса, поскольку
+                        они создают дополнительные проблемы и предотвращают развитие здоровых механизмов преодоления.
+                        Регулярное время приёма пищи стабилизирует уровень сахара в крови и предотвращает энергетические
+                        спады, которые усиливают стресс.
+                    </p>
+
+                    <!-- Аккордеоны внутри карточки -->
+                    <div class="space-y-3 mt-6">
+                        <!-- Аккордеон 1: Продукты, снижающие стресс -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch8-1">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch8.acc1">
+                                    Продукты, снижающие стресс
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch8-1" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch8.acc1.text">
+                                    Включайте продукты, поддерживающие управление стрессом: листовую зелень (богатую
+                                    магнием), ягоды (антиоксиданты), орехи и семена (здоровые жиры и минералы),
+                                    ферментированные продукты (здоровье кишечника влияет на психическое здоровье) и
+                                    травяные чаи, такие как ромашка или зелёный чай. Эти продукты обеспечивают
+                                    питательные вещества, которые поддерживают производство нейротрансмиттеров и
+                                    регуляцию гормонов стресса.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Аккордеон 2: Осознанное питание -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch8-2">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch8.acc2">
+                                    Осознанное питание
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch8-2" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch8.acc2.text">
+                                    Практикуйте питание без отвлекающих факторов — уберите устройства, сядьте и обратите
+                                    внимание на вкус, текстуру и аромат вашей еды. Осознанное питание улучшает
+                                    пищеварение, увеличивает удовлетворение, предотвращает переедание и обеспечивает
+                                    краткий медитативный перерыв в вашем дне. Это превращает необходимую деятельность в
+                                    практику снижения стресса.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 9 -->
+            <div class="bg-(--bg-card) border border-(--border-color) rounded-xl p-6 shadow-sm scroll-mt-20 mb-8"
+                id="boundaries-balance">
+                <h2 class="font-semibold text-2xl text-(--brand) mb-4" data-i18n="guide.ch9.heading">
+                    9. Установление границ и достижение баланса
+                </h2>
+                <div class="space-y-6">
+                    <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch9.text">
+                        Здоровые границы защищают ваше время, энергию и благополучие. Многие студенты и молодые
+                        специалисты борются с установлением границ из-за страха разочаровать других или упустить
+                        возможности. Однако без границ вы становитесь подавленными и неспособными хорошо работать в
+                        любой области. Установите чёткие границы между работой и личной жизнью: назначьте конкретное
+                        время для учёбы/работы и личного времени и соблюдайте эти разделения. Создайте физические
+                        границы, когда это возможно — учитесь в специально отведённых местах, а не в постели. Установите
+                        коммуникационные границы: вам не нужно немедленно отвечать на сообщения; установите часы
+                        «офлайн». Научитесь распознавать и уважать свои пределы: продолжение работы через истощение не
+                        демонстрирует преданность, а скорее приводит к выгоранию и снижению производительности. Баланс
+                        не означает равное время для всего, а скорее соответствующее внимание ко всем важным жизненным
+                        областям — академическим, рабочим, отношениям, здоровью и личным интересам.
+                    </p>
+
+                    <!-- Аккордеоны внутри карточки -->
+                    <div class="space-y-3 mt-6">
+                        <!-- Аккордеон 1: Цифровые границы -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch9-1">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch9.acc1">
+                                    Цифровые границы
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch9-1" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch9.acc1.text">
+                                    Постоянная связь создаёт хронический стресс. Внедрите цифровые границы: отключите
+                                    несущественные уведомления, используйте режимы «Не беспокоить» во время
+                                    сосредоточенной работы или отдыха, назначьте время без телефона (особенно перед
+                                    сном) и рассмотрите еженедельный период «цифровой детоксикации». Эти границы
+                                    уменьшают информационную перегрузку и создают ментальное пространство.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Аккордеон 2: Грациозный отказ -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch9-2">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch9.acc2">
+                                    Грациозный отказ
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch9-2" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch9.acc2.text">
+                                    Разработайте сценарии для отклонения запросов: «Я ценю, что вы подумали обо мне, но
+                                    у меня сейчас нет возможности» или «Это звучит интересно, но мне нужно
+                                    сосредоточиться на моих текущих приоритетах». Вы не обязаны давать подробные
+                                    объяснения. Вежливое, твёрдое «нет» лучше, чем обиженное «да», которое приводит к
+                                    чрезмерным обязательствам и стрессу.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 10 -->
+            <div class="bg-(--bg-card) border border-(--border-color) rounded-xl p-6 shadow-sm scroll-mt-20 mb-8"
+                id="long-term-resilience">
+                <h2 class="font-semibold text-2xl text-(--brand) mb-4" data-i18n="guide.ch10.heading">
+                    10. Построение долгосрочной устойчивости и роста
+                </h2>
+                <div class="space-y-6">
+                    <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch10.text">
+                        Устойчивость — способность адаптироваться и восстанавливаться после невзгод — это не врождённая
+                        черта, а набор навыков, которые можно развить. Построение устойчивости требует культивирования
+                        мышления роста: рассмотрение проблем как возможностей для обучения, а не угроз. Размышляйте о
+                        прошлых трудностях, которые вы преодолели; это укрепляет уверенность в вашей способности
+                        справляться с будущими проблемами. Развивайте самосострадание: относитесь к себе с той же
+                        добротой, которую вы бы предложили другу, столкнувшемуся с трудностями. Самокритика усиливает
+                        стресс, в то время как самосострадание способствует устойчивости и мотивации. Сохраняйте
+                        перспективу: большинство стрессоров, которые кажутся подавляющими в данный момент, становятся
+                        незначительными со временем. Спросите себя: «Будет ли это иметь значение через пять лет?»
+                        Создайте смысл и цель за пределами непосредственных целей: свяжите свои ежедневные усилия с
+                        более крупными ценностями и долгосрочными стремлениями. Это чувство цели обеспечивает мотивацию
+                        в трудные периоды. Наконец, рассматривайте управление стрессом не как устранение всего стресса,
+                        а как развитие способности эффективно справляться со стрессом, сохраняя благополучие и
+                        производительность.
+                    </p>
+
+                    <!-- Аккордеоны внутри карточки -->
+                    <div class="space-y-3 mt-6">
+                        <!-- Аккордеон 1: Посттравматический рост -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch10-1">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch10.acc1">
+                                    Посттравматический рост
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch10-1" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch10.acc1.text">
+                                    Исследования показывают, что люди могут выйти из трудных переживаний с увеличенной
+                                    силой, более глубокими отношениями, большей благодарностью за жизнь и улучшенными
+                                    личными способностями. Это не означает искать трудности, а скорее признавать, что
+                                    проблемы, хотя и болезненные, могут катализировать позитивное личное развитие при
+                                    подходе с соответствующей поддержкой и мышлением.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Аккордеон 2: Непрерывное обучение и адаптация -->
+                        <div class="border border-(--border-color) rounded-lg overflow-hidden">
+                            <button type="button"
+                                class="accordion-trigger w-full p-4 text-left bg-(--bg-muted)/30 hover:bg-(--bg-muted)/50 transition-colors flex items-center justify-between"
+                                aria-expanded="false" aria-controls="acc-ch10-2">
+                                <h3 class="text-lg font-semibold text-(--text-primary)" data-i18n="guide.ch10.acc2">
+                                    Непрерывное обучение и адаптация
+                                </h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="accordion-icon text-(--text-secondary) transition-transform shrink-0">
+                                    <path d="m9 18 6-6-6-6"></path>
+                                </svg>
+                            </button>
+                            <div id="acc-ch10-2" class="accordion-panel hidden p-4 space-y-4">
+                                <p class="text-base leading-relaxed text-(--text-primary)" data-i18n="guide.ch10.acc2.text">
+                                    Регулярно оценивайте, какие стратегии управления стрессом работают лучше всего для
+                                    вас, поскольку потребности меняются со временем и в разных жизненных фазах.
+                                    Экспериментируйте с новыми техниками, сохраняйте то, что работает, и отбрасывайте
+                                    то, что не работает. Рассматривайте управление стрессом как постоянную практику, а
+                                    не как проблему, которую нужно «решить» один раз и забыть. Этот адаптивный подход
+                                    строит прочную устойчивость.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Финальный CTA -->
+            <div class="bg-(--brand)/5 border border-(--brand)/20 rounded-xl p-8 text-center space-y-4 mt-12">
+                <h3 class="text-2xl font-bold text-(--text-primary)" data-i18n="guide.cta.title">Готовы проверить свои
+                    знания?</h3>
+                <p class="text-(--text-secondary)" data-i18n="guide.cta.text">
+                    Теперь, когда вы прочитали руководство, проверьте своё понимание с помощью наших интерактивных
+                    модулей тестирования.
+                </p>
+                <a href="modules.html"
+                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium h-10 rounded-md px-6 bg-(--brand) text-white hover:opacity-90 transition-opacity mt-2">
+                    <span data-i18n="guide.cta.button">Пройти интерактивные тесты</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-(--border-color) py-8 mt-12">
+        <div class="container mx-auto px-4 md:px-8 max-w-6xl text-center text-sm text-(--text-secondary) space-y-2">
+            <p data-i18n="footer.text">Академический проект для психологического самообразования и управления стрессом
+            </p>
+            <p data-i18n="footer.copy" class="text-xs text-(--text-secondary)">© 2025 Ekaterina Jelanova Все права
+                защищены
+            </p>
+        </div>
+    </footer>
+    <script src="./js/translations.js"></script>
+    <script src="./js/app.js" defer></script>
+
+</body>
+
+</html>

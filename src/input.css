@@ -1,12 +1,23 @@
 @import "tailwindcss";
 
 @layer base {
-  button:not(:disabled) { cursor: pointer; }
-  :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 /* === ПЕРЕМЕННЫЕ ТЕМ === */
-:root {
+:root,
+.theme-light {
   --bg-page: oklch(0.98 0 0);
   --bg-card: oklch(1 0 0);
   --bg-muted: oklch(0.96 0 0);
@@ -17,51 +28,97 @@
 }
 
 .theme-dark {
-  --bg-page: oklch(0.15 0 0);
-  --bg-card: oklch(0.2 0 0);
+  --bg-page: oklch(0.145 0 0);
+  --bg-card: oklch(0.145 0 0);
   --bg-muted: oklch(0.22 0 0);
-  --text-primary: oklch(0.95 0 0);
-  --text-secondary: oklch(0.7 0 0);
-  --border-color: oklch(0.3 0 0);
+  --text-primary: oklch(0.985 0 0);
+  --text-secondary: oklch(0.65 0 0);
+  --border-color: oklch(0.22 0 0);
   --brand: oklch(0.75 0.15 264);
 }
 
 .theme-blue {
-  --bg-page: oklch(0.96 0.02 240);
-  --bg-card: oklch(1 0 0);
-  --bg-muted: oklch(0.92 0.03 240);
-  --text-primary: oklch(0.25 0.05 240);
+  --bg-page: oklch(0.97 0.01 240);
+  --bg-card: oklch(0.99 0.005 240);
+  --bg-muted: oklch(0.95 0.015 240);
+  --text-primary: oklch(0.20 0.05 240);
   --text-secondary: oklch(0.45 0.05 240);
-  --border-color: oklch(0.85 0.05 240);
+  --border-color: oklch(0.88 0.02 240);
   --brand: oklch(0.55 0.15 240);
 }
 
 .theme-sunset {
-  --bg-page: oklch(0.96 0.02 60);
-  --bg-card: oklch(1 0 0);
-  --bg-muted: oklch(0.92 0.04 60);
-  --text-primary: oklch(0.25 0.05 40);
-  --text-secondary: oklch(0.45 0.05 40);
-  --border-color: oklch(0.85 0.05 60);
-  --brand: oklch(0.6 0.18 40);
+  --bg-page: oklch(0.98 0.01 60);
+  --bg-card: oklch(0.99 0.005 60);
+  --bg-muted: oklch(0.96 0.015 60);
+  --text-primary: oklch(0.25 0.05 30);
+  --text-secondary: oklch(0.50 0.05 30);
+  --border-color: oklch(0.90 0.02 60);
+  --brand: oklch(0.60 0.18 40);
 }
 
 .theme-green {
-  --bg-page: oklch(0.96 0.02 150);
-  --bg-card: oklch(1 0 0);
-  --bg-muted: oklch(0.92 0.04 150);
-  --text-primary: oklch(0.25 0.05 150);
-  --text-secondary: oklch(0.45 0.05 150);
-  --border-color: oklch(0.85 0.05 150);
-  --brand: oklch(0.5 0.12 150);
+  --bg-page: oklch(0.97 0.01 140);
+  --bg-card: oklch(0.99 0.005 140);
+  --bg-muted: oklch(0.96 0.015 140);
+  --text-primary: oklch(0.22 0.05 140);
+  --text-secondary: oklch(0.48 0.05 140);
+  --border-color: oklch(0.88 0.02 140);
+  --brand: oklch(0.50 0.12 150);
 }
 
 .theme-contrast {
   --bg-page: oklch(1 0 0);
   --bg-card: oklch(1 0 0);
-  --bg-muted: oklch(0.9 0 0);
+  --bg-muted: oklch(0.96 0 0);
   --text-primary: oklch(0 0 0);
   --text-secondary: oklch(0 0 0);
   --border-color: oklch(0 0 0);
   --brand: oklch(0 0 0);
+}
+
+@layer components {
+  .module-row:hover {
+    background-color: var(--bg-muted);
+  }
+}
+
+/* Стилизация самого ползунка */
+.custom-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 16px;
+  /* Высота равна кружку */
+  background: transparent;
+  /* Убираем стандартный фон */
+  cursor: pointer;
+  outline: none;
+}
+
+/* Линия (трек) - используем переменную --track-bg из JS */
+.custom-range::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 6px;
+  /* Толщина линии */
+  background: var(--track-bg, #e5e7eb);
+  /* Цвет по умолчанию, если JS не сработал */
+  border-radius: 9999px;
+  margin-top: 5px;
+  /* Выравниваем линию по центру */
+}
+
+/* Кружок */
+.custom-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid var(--brand);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  margin-top: -5px;
+  /* Центрируем кружок на линии */
 }
